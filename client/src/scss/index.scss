@@ -1,0 +1,23 @@
+html {
+    box-sizing: border-box;
+    &*, *::before, *::after {
+        box-sizing: inherit;
+    }
+    height: calc(100vh - calc(100vh - 100%));
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+    height: calc(100vh - calc(100vh - 100%));
+    width: 100%;
+    font-family: 'Alatsi', sans-serif;
+    background-color: #28293B;
+    .app-container {
+        display: flex;
+        height: 100vh;
+    }
+}
+
+@import "./sidebar";
+@import "./home";

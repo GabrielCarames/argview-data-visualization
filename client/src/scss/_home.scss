@@ -1,0 +1,110 @@
+.home {
+    color: white;
+    margin-left: 100px;
+    margin-top: 60px;
+    font-size: 20px;
+    .todays-weather {
+        .weather__title-container {
+            display: flex;
+            align-items: center;
+            .weather__title {
+
+            }
+            .see-more {
+                margin-left: 60px;
+                .see-more__button {
+                    cursor: pointer;
+                    padding: 15px;
+                    border-radius: 8px;
+                    background-color: #36394E;
+                    font-family: 'Alatsi', sans-serif;
+                    font-size: 18px;
+                    color: white;
+                    border: none;
+                    box-shadow: 0px 4px 54px 1px rgb(0, 0, 0);
+                    transition: background-color .2s;
+                    &:hover {
+                        background-color: #5BC4FF;
+                    }
+                }
+            }
+        }
+        .cards-container {
+            display: flex;
+            .card {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                width: 300px;
+                background: linear-gradient(90deg, #6AB8FF 0%, hsla(209, 100%, 50%, 0.75) 100%);
+                box-shadow: 0px 4px 54px 1px rgba(0, 0, 0, 0.76);
+                border-radius: 50px;
+                margin-left: 10px;
+                cursor: pointer;
+                transition: transform .2s;
+                &:hover {
+                    transform: scale(1.05);
+                    .weather-data {
+                        .fa-sun {
+                            animation: icon infinite 1s linear;
+                        }
+                        .fa-moon {
+                            animation: icon infinite 1s linear;
+                        }
+                    }
+                }
+                &.night {
+                    background: linear-gradient(90deg, #3c6fa0 0%, hsla(209, 100%, 30%, 0.75) 100%);
+                    .weather-data {
+                        .fa-sun {
+                            display: none;
+                        }
+                        .fa-moon {
+                            display: inline-block;
+                        }
+                    }
+                }
+                .temperature {
+                    .temperature__data {
+                        font-size: 50px;
+                    }
+                }
+                .weather-data {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin: 10px 10px;
+                    .fa-sun {
+                        color: yellow;
+                        font-size: 50px;
+                    }
+                    .fa-moon {
+                        font-size: 40px;
+                        display: none;
+                        margin-bottom: 10px;
+                    }
+                    .weather__text {
+                        line-height: 0;
+                    }
+                    .weather__location {
+                        line-height: 0;
+                    }
+                }
+            }
+        }
+        .chart {
+            width: 1000px; 
+            height: 400px;
+            margin-top: 80px;
+            & * {
+                color: #FFFFFF;
+            }
+        }
+    }
+}
+
+@keyframes icon {
+    100% {
+        transform: rotate(90deg);
+    }
+} 
