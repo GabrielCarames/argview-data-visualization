@@ -14,7 +14,6 @@ export default function Home() {
                     </a>
                 </div>
                 <div className="cards-container">
-                    {console.log("asda", BAWeather)}
                     {
                         BAWeather && BAWeather.length >= 1 && BAWeather.slice(0, 5).map((weather, id) => {
                             return (
@@ -23,6 +22,17 @@ export default function Home() {
                                         <i className="fas fa-sun"></i>
                                         <i className="fas fa-moon"></i>
                                         <span className="temperature__data">{Math.round(weather.temperature)}°C</span>
+                                        {id === 0 &&
+                                            <div className="card-data">
+                                                <p className="card__hour">Hora {weather.hour}</p>
+                                                <div className="wind-data">
+                                                    <p className="card__wind-direction">{weather.wind_direction}°</p>
+                                                    <i className="fas fa-wind"></i>
+                                                    <i className="fas fa-arrow-up" style={{"transform": `rotate(${weather.wind_direction}deg)`}}></i>
+                                                </div>
+                                                {/* <p className="weather__wind-direction"> {weather.temperature}</p> */}
+                                            </div>
+                                        }
                                     </div>
                                     <div className="weather-data">
                                         <p className="weather__text">{id !== 0 ? esDateToDayNameenDate(weather.date) : "Hoy"}</p>

@@ -11,7 +11,8 @@ const useHome = () => {
 
     useEffect(() => {
         checkCurrentHour()
-        askForGeoLocation()
+        const currentBAWeather = JSON.parse(localStorage.getItem('BAWeather'))
+        !currentBAWeather ? askForGeoLocation() : setBAWeather(currentBAWeather)
     }, [])
 
     const getFiresData = async () => {
@@ -39,8 +40,14 @@ const useHome = () => {
     }
 
     const askForGeoLocation = () => {
+        const coords = JSON.parse(localStorage.getItem('userLocation'))
+        if(coords) {
+            
+        }
         navigator.geolocation.getCurrentPosition(function(position) {
-            console.log(position.coords.latitude, position.coords.longitude, position);
+            const coords = {latitude: position.coords.latitude, longitude: position.coords.longitude}
+            console.log("coordenadas", coords);
+            localStorage.setItem('userLocation', JSON.stringify(coords))
             getFiveDaysForecast(position)
         }, () => getTodayWeatherData());
     }
@@ -67,7 +74,6 @@ const useHome = () => {
 
     const filterWeatherFromToday = (weather) => {
         const filteredWeather = weather.filter((item) => item.date.split("/")[0] >= "0" + new Date().getDate()).slice(-2)
-        console.log("weatherfiltered", filteredWeather)
         return filteredWeather
     }
    

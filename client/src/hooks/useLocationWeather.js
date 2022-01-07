@@ -28,6 +28,7 @@ const useLocationWeather = (setBAWeather) => {
                 setBAWeather(BAWeather => [...BAWeather, weather])
             }
         }
+        localStorage.setItem('BAWeather', JSON.stringify(currentHourWeather))
     }
 
     const csvFiveDaysWeatherToArray = (string) => {

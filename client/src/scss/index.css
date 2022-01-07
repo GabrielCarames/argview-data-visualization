@@ -51,7 +51,12 @@ body .app-container {
   padding-left: 0px;
 }
 
-.sidebar-container .sidebar .menu-container .list .list__item {
+.sidebar-container .sidebar .menu-container .list .list__href {
+  text-decoration: none;
+  color: white;
+}
+
+.sidebar-container .sidebar .menu-container .list .list__href .list__item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -68,16 +73,16 @@ body .app-container {
   border-radius: 8px;
 }
 
-.sidebar-container .sidebar .menu-container .list .list__item:hover {
+.sidebar-container .sidebar .menu-container .list .list__href .list__item:hover {
   background-color: #5BC4FF;
 }
 
-.sidebar-container .sidebar .menu-container .list .list__item .fas {
+.sidebar-container .sidebar .menu-container .list .list__href .list__item .fas {
   width: 50px;
   text-align: center;
 }
 
-.sidebar-container .sidebar .menu-container .list .list__item .list__title {
+.sidebar-container .sidebar .menu-container .list .list__href .list__item .list__title {
   text-decoration: none;
   color: white;
 }
@@ -96,7 +101,12 @@ body .app-container {
   padding-left: 0px;
 }
 
-.sidebar-container .sidebar .support-container .list .list__item {
+.sidebar-container .sidebar .support-container .list .list__href {
+  text-decoration: none;
+  color: white;
+}
+
+.sidebar-container .sidebar .support-container .list .list__href .list__item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -113,16 +123,16 @@ body .app-container {
   border-radius: 8px;
 }
 
-.sidebar-container .sidebar .support-container .list .list__item:hover {
+.sidebar-container .sidebar .support-container .list .list__href .list__item:hover {
   background-color: #5BC4FF;
 }
 
-.sidebar-container .sidebar .support-container .list .list__item .fas {
+.sidebar-container .sidebar .support-container .list .list__href .list__item .fas {
   width: 50px;
   text-align: center;
 }
 
-.sidebar-container .sidebar .support-container .list .list__item .list__title {
+.sidebar-container .sidebar .support-container .list .list__href .list__item .list__title {
   text-decoration: none;
   color: white;
 }
@@ -290,6 +300,38 @@ body .app-container {
   margin-left: 20px;
 }
 
+.home .todays-weather .cards-container .card .temperature .card-data {
+  font-size: 30px;
+}
+
+.home .todays-weather .cards-container .card .temperature .card-data .card__hour {
+  line-height: 0;
+  margin: 10px 0;
+}
+
+.home .todays-weather .cards-container .card .temperature .card-data .wind-data {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.home .todays-weather .cards-container .card .temperature .card-data .wind-data .card__wind-direction {
+  line-height: 0;
+  margin: 25px 0;
+}
+
+.home .todays-weather .cards-container .card .temperature .card-data .wind-data .fa-wind {
+  margin-left: 10px;
+}
+
+.home .todays-weather .cards-container .card .temperature .card-data .wind-data .fa-arrow-up {
+  margin-left: 10px;
+  color: #00fff2;
+}
+
 .home .todays-weather .cards-container .card .weather-data {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -301,13 +343,15 @@ body .app-container {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 15px;
+  font-size: 18px;
   width: 100px;
 }
 
 .home .todays-weather .cards-container .card .weather-data .weather__text {
   text-transform: capitalize;
   line-height: 0;
+  font-size: 20px;
+  color: #33ff00;
 }
 
 .home .todays-weather .cards-container .card .weather-data .weather__location {

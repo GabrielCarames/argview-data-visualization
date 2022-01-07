@@ -110,16 +110,41 @@
                         font-size: 50px;
                         margin-left: 20px;
                     }
+                    .card-data {
+                        font-size: 30px;
+                        .card__hour {
+                            line-height: 0;
+                            margin: 10px 0;
+                        }
+                        .wind-data {
+                            display: flex;
+                            align-items: center;
+                            .card__wind-direction {
+                                line-height: 0;
+                                margin: 25px 0;
+                            }
+                            .fa-wind {
+                                margin-left: 10px;
+                                // color: rgb(0, 255, 242);
+                            }
+                            .fa-arrow-up {
+                                margin-left: 10px;
+                                color: rgb(0, 255, 242);
+                            }
+                        }
+                    }
                 }
                 .weather-data {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    font-size: 15px;
+                    font-size: 18px;
                     width: 100px;
                     .weather__text {
                         text-transform: capitalize;
                         line-height: 0;
+                        font-size: 20px;
+                        color:rgb(51, 255, 0);
                     }
                     .weather__location {
                         line-height: 0;
