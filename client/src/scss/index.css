@@ -381,4 +381,95 @@ body .app-container {
             transform: rotate(90deg);
   }
 }
+
+.weather-container {
+  color: white;
+  margin-left: 100px;
+  margin-top: 60px;
+  font-size: 25px;
+}
+
+.weather-container .five-days-weather .list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  padding-left: 0;
+}
+
+.weather-container .five-days-weather .list .list__item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 200px;
+  height: 300px;
+  background-color: #36394E;
+  border-radius: 8px;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-shadow: 0px 4px 20px 1px rgba(0, 0, 0, 0.76);
+          box-shadow: 0px 4px 20px 1px rgba(0, 0, 0, 0.76);
+}
+
+.weather-container .five-days-weather .list .list__item:nth-child(1) {
+  border: 1px solid #5BC4FF;
+}
+
+.weather-container .five-days-weather .list .list__item:hover {
+  background-color: #5bc3ff;
+}
+
+.weather-container .five-days-weather .list .list__item .list__day {
+  margin: 0;
+}
+
+.weather-container .five-days-weather .list .list__item .list__date {
+  margin-top: 10px;
+}
+
+.weather-container .five-days-weather .list .list__item .fas {
+  font-size: 50px;
+}
+
+.weather-container .five-days-weather .list .list__item .fa-sun {
+  color: yellow;
+}
+
+.weather-container .five-days-weather .list .list__item .fa-moon {
+  display: none;
+}
+
+.weather-container .five-days-weather .list .list__item .list__temperature {
+  margin: 0;
+  margin-top: 20px;
+}
+
+.weather-container .five-days-weather .list .list__item .list__wind-direction {
+  margin: 0;
+  margin-top: 10px;
+}
+
+.weather-container .five-days-weather .list .list__item .list__wind-speed {
+  margin: 0;
+}
+
+.weather-container .today-weather .list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.weather-container .today-weather .list .list__item {
+  width: 800px;
+  height: 50px;
+  background-color: red;
+}
 /*# sourceMappingURL=index.css.map */

@@ -69,7 +69,6 @@ const useLocationWeather = (setBAWeather) => {
 
     const getFiveDaysForecast = async (position) => {
         const currentDay = ("0" + new Date().getDate()).slice(-2)
-        console.log("currentDay", currentDay)
         await axios.get(`https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-${currentDay}.csv`).then((res) => {
             console.log(res.data)
             const closestLocation = getLocalWeather(res.data, position)

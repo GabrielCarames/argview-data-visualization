@@ -1,0 +1,84 @@
+.weather-container {
+    color: white;
+    margin-left: 100px;
+    margin-top: 60px;
+    font-size: 25px;
+    .searcher {
+       .searcher__title {
+
+       }
+       .searcher__input {
+
+       }
+    }
+    .five-days-weather {
+        .five-days-weather__title {
+
+        }
+        .list {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            padding-left: 0;
+            .list__item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 200px;
+                height: 300px;
+                background-color: #36394E;
+                border-radius: 8px;
+                padding: 10px;
+                box-sizing: border-box;
+                box-shadow: 0px 4px 20px 1px rgba(0, 0, 0, 0.76);
+                &:nth-child(1) {
+                    border: 1px solid #5BC4FF;
+                }
+                &:hover {
+                    background-color: #5bc3ff;
+                }
+                .list__day {
+                    margin: 0;
+                }
+                .list__date {
+                    margin-top: 10px;
+                }
+                .fas {
+                    font-size: 50px;
+                }
+                .fa-sun {
+                    color: yellow;
+                }
+                .fa-moon {
+                    display: none;
+                }
+                .list__temperature {
+                    margin: 0;
+                    margin-top: 20px;
+                }
+                .list__wind-direction {
+                    margin: 0;
+                    margin-top: 10px;
+                }
+                .list__wind-speed {
+                    margin: 0;
+                    
+                }
+            }
+        }
+    }
+    .today-weather {
+        .today-weather__title {
+
+        }
+        .list {
+            list-style: none;
+            padding-left: 0;
+            .list__item {
+                width: 800px;
+                height: 50px;
+                background-color: red;
+            }
+        }
+    }
+}

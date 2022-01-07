@@ -85,7 +85,8 @@ const useDefaultWeather = (setBAWeather) => {
     }
 
     const getTodayWeatherData = async () => {
-        await axios.get('https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-04.csv').then((res) => {
+        const currentDay = ("0" + new Date().getDate()).slice(-2)
+        await axios.get(`https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-${currentDay}.csv`).then((res) => {
             const weather = csvWeatherToArray(res.data)
             console.log("masturbado", weather)
             currentHourFilter(weather)
