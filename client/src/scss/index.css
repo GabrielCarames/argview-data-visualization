@@ -172,9 +172,15 @@ body .app-container {
 }
 
 .home .todays-weather .cards-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 600px 300px 300px;
+      grid-template-columns: 600px 300px 300px;
+  -ms-grid-rows: 125px 125px;
+      grid-template-rows: 125px 125px;
+  row-gap: 0px;
+  -webkit-column-gap: 80px;
+          column-gap: 80px;
 }
 
 .home .todays-weather .cards-container .card {
@@ -187,17 +193,57 @@ body .app-container {
       -ms-flex-align: center;
           align-items: center;
   width: 300px;
+  height: auto;
   background: -webkit-gradient(linear, left top, right top, from(#6AB8FF), to(rgba(0, 132, 255, 0.75)));
   background: linear-gradient(90deg, #6AB8FF 0%, rgba(0, 132, 255, 0.75) 100%);
   -webkit-box-shadow: 0px 4px 54px 1px rgba(0, 0, 0, 0.76);
           box-shadow: 0px 4px 54px 1px rgba(0, 0, 0, 0.76);
   border-radius: 50px;
   margin-left: 10px;
-  cursor: pointer;
   -webkit-transition: -webkit-transform .2s;
   transition: -webkit-transform .2s;
   transition: transform .2s;
   transition: transform .2s, -webkit-transform .2s;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.home .todays-weather .cards-container .card:nth-child(1) {
+  width: 600px;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  grid-row: 1/3;
+  padding: 0px;
+}
+
+.home .todays-weather .cards-container .card:nth-child(1) .temperature .fa-sun {
+  color: yellow;
+  font-size: 70px;
+}
+
+.home .todays-weather .cards-container .card:nth-child(1) .temperature .fa-moon {
+  font-size: 40px;
+  display: none;
+  margin-bottom: 10px;
+}
+
+.home .todays-weather .cards-container .card:nth-child(1) .temperature .temperature__data {
+  margin-left: 20px;
+  font-size: 80px;
+}
+
+.home .todays-weather .cards-container .card:nth-child(1) .weather-data {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 30px;
 }
 
 .home .todays-weather .cards-container .card:hover {
@@ -205,12 +251,12 @@ body .app-container {
           transform: scale(1.05);
 }
 
-.home .todays-weather .cards-container .card:hover .weather-data .fa-sun {
+.home .todays-weather .cards-container .card:hover .temperature .fa-sun {
   -webkit-animation: icon infinite 1s linear;
           animation: icon infinite 1s linear;
 }
 
-.home .todays-weather .cards-container .card:hover .weather-data .fa-moon {
+.home .todays-weather .cards-container .card:hover .temperature .fa-moon {
   -webkit-animation: icon infinite 1s linear;
           animation: icon infinite 1s linear;
 }
@@ -228,8 +274,20 @@ body .app-container {
   display: inline-block;
 }
 
+.home .todays-weather .cards-container .card .temperature .fa-sun {
+  color: yellow;
+  font-size: 50px;
+}
+
+.home .todays-weather .cards-container .card .temperature .fa-moon {
+  font-size: 40px;
+  display: none;
+  margin-bottom: 10px;
+}
+
 .home .todays-weather .cards-container .card .temperature .temperature__data {
   font-size: 50px;
+  margin-left: 20px;
 }
 
 .home .todays-weather .cards-container .card .weather-data {
@@ -243,21 +301,12 @@ body .app-container {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 10px 10px;
-}
-
-.home .todays-weather .cards-container .card .weather-data .fa-sun {
-  color: yellow;
-  font-size: 50px;
-}
-
-.home .todays-weather .cards-container .card .weather-data .fa-moon {
-  font-size: 40px;
-  display: none;
-  margin-bottom: 10px;
+  font-size: 15px;
+  width: 100px;
 }
 
 .home .todays-weather .cards-container .card .weather-data .weather__text {
+  text-transform: capitalize;
   line-height: 0;
 }
 

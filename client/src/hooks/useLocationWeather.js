@@ -44,6 +44,7 @@ const useLocationWeather = (setBAWeather) => {
           var location = data_splitted[7];
           var content = {};
           content["station_name"] = data_splitted[0];
+          content["date"] = data_splitted[1];
           content["hour"] = data_splitted[2];
           content["temperature"] = data_splitted[3];
           content["wind_direction"] = data_splitted[4];
@@ -66,7 +67,10 @@ const useLocationWeather = (setBAWeather) => {
     }
 
     const getFiveDaysForecast = async (position) => {
-        await axios.get('https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-04.csv').then((res) => {
+        const currentDay = ("0" + new Date().getDate()).slice(-2)
+        console.log("currentDay", currentDay)
+        await axios.get(`https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-${currentDay}.csv`).then((res) => {
+            console.log(res.data)
             const closestLocation = getLocalWeather(res.data, position)
             currentHourLocationsFilter(closestLocation)
             weatherState()

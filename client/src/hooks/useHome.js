@@ -51,8 +51,27 @@ const useHome = () => {
             card.className = 'card night'
         }
     }
+
+    const esDateToDayNameenDate = (esDate) => {
+        let formatedMonth = ""
+        if(esDate.split("/")[1] === "ENE")formatedMonth = "JAN"
+        if(esDate.split("/")[1] === "DIC") esDate.split("/")[1] = "DEC"
+        const formatedDate = `${esDate.split("/")[0]}/${formatedMonth}/${esDate.split("/")[2]}`
+        return new Date(formatedDate).toLocaleString('es-ar', {weekday:'long'})
+    }
+
+    const esDateToDayAndMonthhenDate = (esDate) => {
+        const formatedDate = `${esDate.split("/")[0]}/${esDate.split("/")[1]}`
+        return formatedDate
+    }
+
+    const filterWeatherFromToday = (weather) => {
+        const filteredWeather = weather.filter((item) => item.date.split("/")[0] >= "0" + new Date().getDate()).slice(-2)
+        console.log("weatherfiltered", filteredWeather)
+        return filteredWeather
+    }
    
-    return {BAfires, BAWeather, checkCurrentHour, formatProvince}
+    return {BAfires, BAWeather, checkCurrentHour, formatProvince, esDateToDayNameenDate, esDateToDayAndMonthhenDate, filterWeatherFromToday}
 }
 
 export default useHome
