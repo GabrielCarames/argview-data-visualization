@@ -22,12 +22,28 @@ body .app-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 100vh;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+}
+
+@-webkit-keyframes icon {
+  100% {
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+  }
+}
+
+@keyframes icon {
+  100% {
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+  }
 }
 
 .sidebar-container {
   width: 300px;
-  height: 100%;
+  height: auto;
   background-color: #36394E;
   color: white;
   font-size: 23px;
@@ -368,20 +384,6 @@ body .app-container {
   color: #FFFFFF;
 }
 
-@-webkit-keyframes icon {
-  100% {
-    -webkit-transform: rotate(90deg);
-            transform: rotate(90deg);
-  }
-}
-
-@keyframes icon {
-  100% {
-    -webkit-transform: rotate(90deg);
-            transform: rotate(90deg);
-  }
-}
-
 .weather-container {
   color: white;
   margin-left: 100px;
@@ -418,18 +420,26 @@ body .app-container {
           box-sizing: border-box;
   -webkit-box-shadow: 0px 4px 20px 1px rgba(0, 0, 0, 0.76);
           box-shadow: 0px 4px 20px 1px rgba(0, 0, 0, 0.76);
+  -webkit-transition: background-color .25s;
+  transition: background-color .25s;
 }
 
 .weather-container .five-days-weather .list .list__item:nth-child(1) {
-  border: 1px solid #5BC4FF;
+  border: 2px solid #5BC4FF;
 }
 
 .weather-container .five-days-weather .list .list__item:hover {
   background-color: #5bc3ff;
 }
 
+.weather-container .five-days-weather .list .list__item:hover .fas {
+  -webkit-animation: icon infinite 1s linear;
+          animation: icon infinite 1s linear;
+}
+
 .weather-container .five-days-weather .list .list__item .list__day {
   margin: 0;
+  text-transform: capitalize;
 }
 
 .weather-container .five-days-weather .list .list__item .list__date {
@@ -463,13 +473,100 @@ body .app-container {
 }
 
 .weather-container .today-weather .list {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-rows: 50px;
+  gap: 10px;
   list-style: none;
   padding-left: 0;
+  font-size: 20px;
 }
 
 .weather-container .today-weather .list .list__item {
-  width: 800px;
-  height: 50px;
-  background-color: red;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 200px 250px 200px 200px 150px 200px;
+      grid-template-columns: 200px 250px 200px 200px 150px 200px;
+  grid-auto-rows: 50px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #36394E;
+  border-radius: 8px;
+}
+
+.weather-container .today-weather .list .list__item:hover {
+  background-color: #5BC4FF;
+}
+
+.weather-container .today-weather .list .list__item:hover .weather__precipitation .fa-cloud-rain {
+  color: #0062ff;
+}
+
+.weather-container .today-weather .list .list__item .list__hour {
+  padding-left: 20px;
+}
+
+.weather-container .today-weather .list .list__item .fa-sun {
+  font-size: 30px;
+  color: yellow;
+}
+
+.weather-container .today-weather .list .list__item .fa-moon {
+  display: none;
+  font-size: 30px;
+}
+
+.weather-container .today-weather .list .list__item .weather__precipitation {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.weather-container .today-weather .list .list__item .weather__precipitation .fa-cloud-rain {
+  color: #5BC4FF;
+}
+
+.weather-container .today-weather .list .list__item .weather__precipitation .list__precipitation {
+  margin-left: 10px;
+}
+
+.weather-container .today-weather .list .list__item .wind-direction {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.weather-container .today-weather .list .list__item .wind-direction .fa-arrow-up {
+  color: yellowgreen;
+}
+
+.weather-container .today-weather .list .list__item .wind-direction .list__wind-direction {
+  margin-left: 10px;
+}
+
+.weather-container .today-weather .list .list__item .wind-speed {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-self: right;
+  padding-right: 20px;
+}
+
+.weather-container .today-weather .list .list__item .wind-speed .fa-wind {
+  color: #c4c4c4;
+}
+
+.weather-container .today-weather .list .list__item .wind-speed .list__wind-speed {
+  margin-left: 10px;
 }
 /*# sourceMappingURL=index.css.map */

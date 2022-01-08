@@ -15,9 +15,16 @@ body {
     background-color: #28293B;
     .app-container {
         display: flex;
-        height: 100vh;
+        // height: 100vh;
+        height: min-content;
     }
 }
+
+@keyframes icon {
+    100% {
+        transform: rotate(90deg);
+    }
+} 
 
 @import "./sidebar";
 @import "./home";

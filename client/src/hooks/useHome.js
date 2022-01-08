@@ -11,8 +11,15 @@ const useHome = () => {
 
     useEffect(() => {
         checkCurrentHour()
+        getArgentinaTodayWeather()
         const currentBAWeather = JSON.parse(localStorage.getItem('BAWeather'))
-        !currentBAWeather ? askForGeoLocation() : setBAWeather(currentBAWeather)
+        const currentHour = localStorage.getItem('currentHour')
+        if(!currentBAWeather) {
+            askForGeoLocation()
+        } else if(currentHour < new Date().getHours()){
+            const userPosition = JSON.parse(localStorage.getItem('userLocation'))
+            getFiveDaysForecast(userPosition)
+        } else setBAWeather(currentBAWeather)
     }, [])
 
     const getFiresData = async () => {
@@ -20,6 +27,12 @@ const useHome = () => {
             // const fires = csvToArrayConverter(res.data)
             // buenosAiresFiresFilter(fires)
             //  console.log("fires", fires)
+        })
+    }
+
+    const getArgentinaTodayWeather = async () => {
+        await axios.get('https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/today.csv').then((res) => {
+            console.log("today", res.data)
         })
     }
 
@@ -45,7 +58,7 @@ const useHome = () => {
             
         }
         navigator.geolocation.getCurrentPosition(function(position) {
-            const coords = {latitude: position.coords.latitude, longitude: position.coords.longitude}
+            const coords = {coords: {latitude: position.coords.latitude, longitude: position.coords.longitude}}
             console.log("coordenadas", coords);
             localStorage.setItem('userLocation', JSON.stringify(coords))
             getFiveDaysForecast(position)

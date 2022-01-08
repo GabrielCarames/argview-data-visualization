@@ -13,7 +13,6 @@
     }
     .five-days-weather {
         .five-days-weather__title {
-
         }
         .list {
             display: flex;
@@ -31,14 +30,19 @@
                 padding: 10px;
                 box-sizing: border-box;
                 box-shadow: 0px 4px 20px 1px rgba(0, 0, 0, 0.76);
+                transition: background-color .25s;
                 &:nth-child(1) {
-                    border: 1px solid #5BC4FF;
+                    border: 2px solid #5BC4FF;
                 }
                 &:hover {
                     background-color: #5bc3ff;
+                    .fas {
+                        animation: icon infinite 1s linear;
+                    }
                 }
                 .list__day {
                     margin: 0;
+                    text-transform: capitalize;
                 }
                 .list__date {
                     margin-top: 10px;
@@ -72,12 +76,74 @@
 
         }
         .list {
+            display: grid;
+            grid-auto-rows: 50px;
+            gap: 10px;
             list-style: none;
             padding-left: 0;
+            font-size: 20px;
             .list__item {
-                width: 800px;
-                height: 50px;
-                background-color: red;
+                display: grid;
+                grid-template-columns: 200px 250px 200px 200px 150px 200px;
+                grid-auto-rows: 50px;
+                align-items: center;
+                background-color: #36394E;
+                border-radius: 8px;
+                &:hover {
+                    background-color: #5BC4FF;
+                    .weather__precipitation {
+                        .fa-cloud-rain {
+                            color: #0062ff;
+                        }
+                    }
+                }
+                .list__hour {
+                    padding-left: 20px;
+                }
+                .fas {
+                }
+                .fa-sun {
+                    font-size: 30px;
+                    color: yellow;
+                }
+                .fa-moon {
+                    display: none;
+                    font-size: 30px;
+                }
+                .list__temperature {
+                }
+                .weather__precipitation {
+                    display: flex;
+                    align-items: center;
+                    .fa-cloud-rain {
+                        color: #5BC4FF;
+                    }
+                    .list__precipitation {
+                        margin-left: 10px;
+                    }
+                }
+                .wind-direction {
+                    display: flex;
+                    align-items: center;
+                    .fa-arrow-up {
+                        color: yellowgreen;
+                    }
+                    .list__wind-direction {
+                        margin-left: 10px;
+                    }
+                }
+                .wind-speed {
+                    display: flex;
+                    align-items: center;
+                    justify-self: right;
+                    padding-right: 20px;
+                    .fa-wind {
+                        color: rgb(196, 196, 196);
+                    }
+                    .list__wind-speed {
+                        margin-left: 10px;
+                    }
+                }
             }
         }
     }

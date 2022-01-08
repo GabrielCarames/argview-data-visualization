@@ -29,6 +29,7 @@ const useLocationWeather = (setBAWeather) => {
             }
         }
         localStorage.setItem('BAWeather', JSON.stringify(currentHourWeather))
+        localStorage.setItem('currentHour', new Date().getHours())
     }
 
     const csvFiveDaysWeatherToArray = (string) => {
@@ -69,12 +70,14 @@ const useLocationWeather = (setBAWeather) => {
 
     const getFiveDaysForecast = async (position) => {
         const currentDay = ("0" + new Date().getDate()).slice(-2)
+        // https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-${currentDay}.csv
         await axios.get(`https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-${currentDay}.csv`).then((res) => {
-            console.log(res.data)
             const closestLocation = getLocalWeather(res.data, position)
+            console.log(closestLocation)
             currentHourLocationsFilter(closestLocation)
             weatherState()
         })
+        
     }
 
     return {getFiveDaysForecast}
