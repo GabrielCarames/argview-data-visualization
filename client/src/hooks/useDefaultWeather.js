@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const useDefaultWeather = (setBAWeather) => {
+const useDefaultWeather = (setCurrentHourBAWeather) => {
     let currentHourWeather = []
 
     const currentHourFilter = (weather) => {
@@ -26,15 +26,15 @@ const useDefaultWeather = (setBAWeather) => {
     const weatherState = (weather) => {
         if(Math.round(weather.temperature) > 20) {
             weather.state = "Soleado"
-            setBAWeather(BAWeather => [...BAWeather, weather])
+            setCurrentHourBAWeather(BAWeather => [...BAWeather, weather])
         }
         if(Math.round(weather.temperature) < 20) {
             weather.state = "Despejado"
-            setBAWeather(BAWeather => [...BAWeather, weather])
+            setCurrentHourBAWeather(BAWeather => [...BAWeather, weather])
         }
         if(Math.round(weather.temperature) < 10) {
             weather.state = "Frio"
-            setBAWeather(BAWeather => [...BAWeather, weather])
+            setCurrentHourBAWeather(BAWeather => [...BAWeather, weather])
         }
     }
     

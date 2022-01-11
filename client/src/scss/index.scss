@@ -13,9 +13,13 @@ body {
     width: 100%;
     font-family: 'Alatsi', sans-serif;
     background-color: #28293B;
+    #root {
+        height: 100%;
+    }
     .app-container {
         display: flex;
         // height: 100vh;
+        min-height: 100%;
         height: min-content;
     }
 }

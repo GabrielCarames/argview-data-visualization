@@ -18,10 +18,15 @@ body {
   background-color: #28293B;
 }
 
+body #root {
+  height: 100%;
+}
+
 body .app-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  min-height: 100%;
   height: -webkit-min-content;
   height: -moz-min-content;
   height: min-content;
@@ -224,7 +229,7 @@ body .app-container {
   background: linear-gradient(90deg, #6AB8FF 0%, rgba(0, 132, 255, 0.75) 100%);
   -webkit-box-shadow: 0px 4px 54px 1px rgba(0, 0, 0, 0.76);
           box-shadow: 0px 4px 54px 1px rgba(0, 0, 0, 0.76);
-  border-radius: 50px;
+  border-radius: 25px;
   margin-left: 10px;
   -webkit-transition: -webkit-transform .2s;
   transition: -webkit-transform .2s;
@@ -240,6 +245,7 @@ body .app-container {
   -ms-grid-row-span: 2;
   grid-row: 1/3;
   padding: 0px;
+  border-radius: 50px;
 }
 
 .home .todays-weather .cards-container .card:nth-child(1) .temperature .fa-sun {
@@ -269,6 +275,10 @@ body .app-container {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  font-size: 30px;
+}
+
+.home .todays-weather .cards-container .card:nth-child(1) .weather-data .weather__text {
   font-size: 30px;
 }
 
@@ -337,15 +347,21 @@ body .app-container {
 .home .todays-weather .cards-container .card .temperature .card-data .wind-data .card__wind-direction {
   line-height: 0;
   margin: 25px 0;
+  margin-left: 10px;
 }
 
-.home .todays-weather .cards-container .card .temperature .card-data .wind-data .fa-wind {
-  margin-left: 10px;
+.home .todays-weather .cards-container .card .temperature .card-data .wind-data .card__wind {
+  line-height: 0;
 }
 
 .home .todays-weather .cards-container .card .temperature .card-data .wind-data .fa-arrow-up {
   margin-left: 10px;
-  color: #00fff2;
+  color: #00ff80;
+}
+
+.home .todays-weather .cards-container .card .temperature .card-data .wind-data .card__wind-speed {
+  line-height: 0;
+  margin-left: 10px;
 }
 
 .home .todays-weather .cards-container .card .weather-data {
@@ -367,7 +383,7 @@ body .app-container {
   text-transform: capitalize;
   line-height: 0;
   font-size: 20px;
-  color: #33ff00;
+  color: #00ff80;
 }
 
 .home .todays-weather .cards-container .card .weather-data .weather__location {
@@ -493,6 +509,12 @@ body .app-container {
           align-items: center;
   background-color: #36394E;
   border-radius: 8px;
+  -webkit-transition: background-color .25s;
+  transition: background-color .25s;
+}
+
+.weather-container .today-weather .list .list__item.active {
+  border: 2px solid #5BC4FF;
 }
 
 .weather-container .today-weather .list .list__item:hover {

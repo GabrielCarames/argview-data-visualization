@@ -1,35 +1,55 @@
 import axios from 'axios';
+import Weather from "../components/Weather";
 
-const useLocationWeather = (setBAWeather) => {
-    let currentHourWeather = []
+const useLocationWeather = (setCurrentHourBAWeather) => {
+    // let currentHourWeather = []
 
     const currentHourLocationsFilter = (weather) => {
         const currentHour = new Date().getHours()
+        let currentHourWeather = []
         weather.forEach((item, id) => {
             const hour = item.hour.replace('Hs','')
             if(hour > (currentHour - 2) && hour < (currentHour + 2)) {
                 currentHourWeather.push(weather[id])
             }
         })
+        return currentHourWeather
+    }
+
+    const currentDayLocationsFilter = (weather) => {
+        let currentDayWeather = []
+        let currentDay = new Date().getDate()
+        if(currentDay.length === 1) currentDay = "0" + currentDay
+        console.log("arr", weather[0].date.split("/")[0], currentDay)
+        weather.forEach((item) => {
+            console.log("levioza", typeof item.date.split("/")[0], typeof JSON.parse(item.date.split("/")[0]))
+            if(JSON.parse(item.date.split("/")[0]) === currentDay) {
+                currentDayWeather.push(item)
+            }
+        })
+        return currentDayWeather
     }
     
     const weatherState = () => {
-        for (const weather of currentHourWeather) {
-            if(Math.round(weather.temperature) > 20) {
-                weather.state = "Soleado"
-                setBAWeather(BAWeather => [...BAWeather, weather])
-            }
-            if(Math.round(weather.temperature) < 20) {
-                weather.state = "Despejado"
-                setBAWeather(BAWeather => [...BAWeather, weather])
-            }
-            if(Math.round(weather.temperature) < 10) {
-                weather.state = "Frio"
-                setBAWeather(BAWeather => [...BAWeather, weather])
-            }
-        }
-        localStorage.setItem('BAWeather', JSON.stringify(currentHourWeather))
-        localStorage.setItem('currentHour', new Date().getHours())
+        // for (const weather of currentHourWeather) {
+        //     if(Math.round(weather.temperature) > 20) {
+        //         weather.state = "Soleado"
+        //         setBAWeather(BAWeather => [...BAWeather, weather])
+        //     }
+        //     if(Math.round(weather.temperature) < 20) {
+        //         weather.state = "Despejado"
+        //         setBAWeather(BAWeather => [...BAWeather, weather])
+        //     }
+        //     if(Math.round(weather.temperature) < 10) {
+        //         weather.state = "Frio"
+        //         setBAWeather(BAWeather => [...BAWeather, weather])
+        //     }
+        // }
+        // console.log("prikmerputti", currentHourWeather)
+        // localStorage.setItem('BAWeather', JSON.stringify(currentHourWeather))
+        // localStorage.setItem('currentHour', new Date().getHours())
+        // localStorage.setItem('currentDayBAWeather', JSON.stringify(currentDayWeather))
+        // setBAWeather(currentHourWeather)
     }
 
     const csvFiveDaysWeatherToArray = (string) => {
@@ -57,27 +77,41 @@ const useLocationWeather = (setBAWeather) => {
         return json;
     }
 
-    const getLocalWeather = (weather, position) => {
+    const getUserLocationWeather = (weather, position) => {
         const fiveDaysWeather = csvFiveDaysWeatherToArray(weather)
+        
         const latitude = position.coords.latitude
         const longitude = position.coords.longitude
         let closestLocation = 0
         for (const item in fiveDaysWeather) {
             if(Math.abs((Math.abs(latitude - item.split(' ')[0]) + Math.abs(longitude - item.split(' ')[1]))) > closestLocation) closestLocation = fiveDaysWeather[item] //verifica la locacion mas cercana a partir del valor absoluto de la resta de ambas latitudes y longitudes y guarda su referencia
         }
+        console.log(closestLocation)
         return closestLocation
+    }
+
+    const filterUserLocationWeather = (weather) => {
+        const currentDayWeather = currentDayLocationsFilter(weather)
+        console.log("asas", currentDayWeather)
+        const currentHourWeather = currentHourLocationsFilter(weather)
+        localStorage.setItem('currentHourBAWeather', JSON.stringify(currentHourWeather))
+        localStorage.setItem('currentDayBAWeather', JSON.stringify(currentDayWeather))
+        localStorage.setItem('BAWeather', JSON.stringify(weather))
+        localStorage.setItem('currentHour', new Date().getHours())
+        setCurrentHourBAWeather(currentHourWeather)
     }
 
     const getFiveDaysForecast = async (position) => {
         const currentDay = ("0" + new Date().getDate()).slice(-2)
         // https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-${currentDay}.csv
         await axios.get(`https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-${currentDay}.csv`).then((res) => {
-            const closestLocation = getLocalWeather(res.data, position)
-            console.log(closestLocation)
-            currentHourLocationsFilter(closestLocation)
-            weatherState()
+            const userLocationWeather = getUserLocationWeather(res.data, position)
+            filterUserLocationWeather(userLocationWeather)
+            // console.log("cloests", closestLocation)
+            // currentDayLocationsFilter(closestLocation)
+            // currentHourLocationsFilter(closestLocation)
+            // weatherState()
         })
-        
     }
 
     return {getFiveDaysForecast}

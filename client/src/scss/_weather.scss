@@ -89,6 +89,10 @@
                 align-items: center;
                 background-color: #36394E;
                 border-radius: 8px;
+                transition: background-color .25s;
+                &.active {
+                    border: 2px solid #5BC4FF;
+                }
                 &:hover {
                     background-color: #5BC4FF;
                     .weather__precipitation {

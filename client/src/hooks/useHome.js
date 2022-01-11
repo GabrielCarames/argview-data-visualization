@@ -5,21 +5,21 @@ import useLocationWeather from "./useLocationWeather";
 
 const useHome = () => {
     const [BAfires, setBAfires] = useState([])
-    const [BAWeather, setBAWeather] = useState([])
-    const {getFiveDaysForecast} = useLocationWeather(setBAWeather)
-    const {getTodayWeatherData} = useDefaultWeather(setBAWeather)
+    const [currentHourBAWeather, setCurrentHourBAWeather] = useState([])
+    const {getFiveDaysForecast} = useLocationWeather(setCurrentHourBAWeather)
+    const {getTodayWeatherData} = useDefaultWeather(setCurrentHourBAWeather)
 
     useEffect(() => {
         checkCurrentHour()
         getArgentinaTodayWeather()
-        const currentBAWeather = JSON.parse(localStorage.getItem('BAWeather'))
+        const currentBAWeather = JSON.parse(localStorage.getItem('currentHourBAWeather'))
         const currentHour = localStorage.getItem('currentHour')
         if(!currentBAWeather) {
             askForGeoLocation()
         } else if(currentHour < new Date().getHours()){
             const userPosition = JSON.parse(localStorage.getItem('userLocation'))
             getFiveDaysForecast(userPosition)
-        } else setBAWeather(currentBAWeather)
+        } else setCurrentHourBAWeather(currentBAWeather)
     }, [])
 
     const getFiresData = async () => {
@@ -32,7 +32,7 @@ const useHome = () => {
 
     const getArgentinaTodayWeather = async () => {
         await axios.get('https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/today.csv').then((res) => {
-            console.log("today", res.data)
+            // console.log("today", res.data)
         })
     }
 
@@ -87,10 +87,11 @@ const useHome = () => {
 
     const filterWeatherFromToday = (weather) => {
         const filteredWeather = weather.filter((item) => item.date.split("/")[0] >= "0" + new Date().getDate()).slice(-2)
+        //che guerda que el "0" + dia es relativo, meterle el if 
         return filteredWeather
     }
    
-    return {BAfires, BAWeather, checkCurrentHour, formatProvince, esDateToDayNameenDate, esDateToDayAndMonthhenDate, filterWeatherFromToday}
+    return {BAfires, currentHourBAWeather, checkCurrentHour, formatProvince, esDateToDayNameenDate, esDateToDayAndMonthhenDate, filterWeatherFromToday}
 }
 
 export default useHome
