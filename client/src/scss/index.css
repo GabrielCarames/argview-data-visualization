@@ -407,6 +407,85 @@ body .app-container {
   font-size: 25px;
 }
 
+.weather-container .searcher .input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #36394E;
+  border-radius: 8px;
+  width: 420px;
+}
+
+.weather-container .searcher .input-container .fa-search {
+  width: 20px;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.weather-container .searcher .input-container .searcher__input {
+  width: 400px;
+  height: 30px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background-color: #36394E;
+  color: white;
+  font-family: 'Alatsi', sans-serif;
+}
+
+.weather-container .searcher .results {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  list-style: none;
+  padding-left: 0;
+  background-color: #36394E;
+  width: 420px;
+  margin: 0;
+}
+
+.weather-container .searcher .results .list__item {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 40px 330px 50px;
+      grid-template-columns: 40px 330px 50px;
+  -ms-grid-rows: 40px;
+      grid-template-rows: 40px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 420px;
+  font-size: 20px;
+  border-radius: 8px;
+  border: 2px solid #36394E;
+  -webkit-transition: border .25s;
+  transition: border .25s;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  cursor: pointer;
+}
+
+.weather-container .searcher .results .list__item:hover {
+  border: 2px solid #5BC4FF;
+}
+
+.weather-container .searcher .results .list__item .fa-map-marker-alt {
+  -ms-grid-column-align: center;
+      justify-self: center;
+  color: #5BC4FF;
+}
+
+.weather-container .searcher .results .list__item .list__flag {
+  background-color: white;
+}
+
 .weather-container .five-days-weather .list {
   display: -webkit-box;
   display: -ms-flexbox;

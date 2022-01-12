@@ -78,25 +78,24 @@ const useLocationWeather = (setCurrentHourBAWeather) => {
     }
 
     const getUserLocationWeather = (weather, position) => {
-        const fiveDaysWeather = csvFiveDaysWeatherToArray(weather)
-        
         const latitude = position.coords.latitude
         const longitude = position.coords.longitude
         let closestLocation = 0
-        for (const item in fiveDaysWeather) {
-            if(Math.abs((Math.abs(latitude - item.split(' ')[0]) + Math.abs(longitude - item.split(' ')[1]))) > closestLocation) closestLocation = fiveDaysWeather[item] //verifica la locacion mas cercana a partir del valor absoluto de la resta de ambas latitudes y longitudes y guarda su referencia
+        for (const item in weather) {
+            if(Math.abs((Math.abs(latitude - item.split(' ')[0]) + Math.abs(longitude - item.split(' ')[1]))) > closestLocation) closestLocation = weather[item] //verifica la locacion mas cercana a partir del valor absoluto de la resta de ambas latitudes y longitudes y guarda su referencia
         }
         console.log(closestLocation)
         return closestLocation
     }
 
-    const filterUserLocationWeather = (weather) => {
-        const currentDayWeather = currentDayLocationsFilter(weather)
-        console.log("asas", currentDayWeather)
-        const currentHourWeather = currentHourLocationsFilter(weather)
+    const filterUserLocationWeather = (userLocationWeather, weather) => {
+        const currentDayWeather = currentDayLocationsFilter(userLocationWeather)
+        console.log("asas", userLocationWeather)
+        const currentHourWeather = currentHourLocationsFilter(userLocationWeather)
         localStorage.setItem('currentHourBAWeather', JSON.stringify(currentHourWeather))
         localStorage.setItem('currentDayBAWeather', JSON.stringify(currentDayWeather))
-        localStorage.setItem('BAWeather', JSON.stringify(weather))
+        localStorage.setItem('BAWeather', JSON.stringify(userLocationWeather))
+        localStorage.setItem('weather', JSON.stringify(weather))
         localStorage.setItem('currentHour', new Date().getHours())
         setCurrentHourBAWeather(currentHourWeather)
     }
@@ -104,9 +103,10 @@ const useLocationWeather = (setCurrentHourBAWeather) => {
     const getFiveDaysForecast = async (position) => {
         const currentDay = ("0" + new Date().getDate()).slice(-2)
         // https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-${currentDay}.csv
-        await axios.get(`https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-${currentDay}.csv`).then((res) => {
-            const userLocationWeather = getUserLocationWeather(res.data, position)
-            filterUserLocationWeather(userLocationWeather)
+        await axios.get(`https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-11.csv`).then((res) => {
+            const weather = csvFiveDaysWeatherToArray(res.data)
+            const userLocationWeather = getUserLocationWeather(weather, position)
+            filterUserLocationWeather(userLocationWeather, weather)
             // console.log("cloests", closestLocation)
             // currentDayLocationsFilter(closestLocation)
             // currentHourLocationsFilter(closestLocation)

@@ -2,20 +2,36 @@ import { useEffect, useState } from "react"
 
 
 const useWeather = () => {
-    const [BAWeather, setBAWeather] = useState([])
+    const [weather, setWeather] = useState([])
+    const [weatherResults, setWeatherResults] = useState([])
+    const [currentHourBAWeather, setCurrentHourBAWeather] = useState([])
     const [currentDayBAWeather, setCurrentDayBAWeather] = useState([])
+    const [searchWeather, setSearchWeather] = useState()
 
     useEffect(() => {
-        setBAWeather(JSON.parse(localStorage.getItem('currentHourBAWeather')))
-        console.log("peltudodemierdahijodeptua", JSON.parse(localStorage.getItem('currentDayBAWeather')))
+        setCurrentHourBAWeather(JSON.parse(localStorage.getItem('currentHourBAWeather')))
         setCurrentDayBAWeather(JSON.parse(localStorage.getItem('currentDayBAWeather')))
+        setWeather(JSON.parse(localStorage.getItem('weather')))
     }, [])
+
+    useEffect(() => {
+        // if(searchWeather === '') setLoader(false)
+        if(searchWeather) {
+            // setLoader(true)
+            const timer = setTimeout(() => {
+                if(searchWeather !== undefined){
+                    console.log("putito", weather)
+                    // setLoader(false)
+                }
+            }, 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [searchWeather])
 
     const directions = ["Norte", "Noreste", "Este", "Sureste", "Sur", "Suroeste", "Oeste", "Noroeste"]
 
     const getDirection = (angle) => {
         const index = Math.round(((angle %= 360) < 0 ? angle + 360 : angle) / 45) % 8;
-        console.log("index", index, directions[index])
         return directions[index]
     }
 
@@ -34,7 +50,11 @@ const useWeather = () => {
         else return "list__item"
     }
 
-    return {BAWeather, currentDayBAWeather, getDirection, getWeatherFromDay, activeCurrentHourItem}
+    const celsiusToFahrenheit = (degrees) => {
+        return Math.round((Math.round(degrees) * (9 / 5)) + 32)
+    }
+
+    return {currentHourBAWeather, currentDayBAWeather, getDirection, getWeatherFromDay, activeCurrentHourItem, celsiusToFahrenheit, setSearchWeather, weatherResults}
 }
 
 export default useWeather

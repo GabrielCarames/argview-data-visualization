@@ -4,12 +4,66 @@
     margin-top: 60px;
     font-size: 25px;
     .searcher {
-       .searcher__title {
+        .searcher__title {
 
-       }
-       .searcher__input {
+        }
+        .input-container {
+            display: flex;
+            align-items: center;
+            background-color: #36394E;
+            border-radius: 8px;
+            width: 420px;
+            .fa-search {
+                width: 20px;
+                font-size: 20px;
+                padding: 10px;
+            }
+           .searcher__input {
+               width: 400px;
+               height: 30px;
+               border-radius: 8px;
+               border: none;
+               outline: none;
+               background-color: #36394E;
+               color: white;
+               font-family: 'Alatsi', sans-serif;
+           }
+        }
+        .results {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            padding-left: 0;
+            background-color: #36394E;
+            width: 420px;
+            margin: 0;
+            .list__item {
+                display: grid;
+                grid-template-columns: 40px 330px 50px;
+                grid-template-rows: 40px;
+                align-items: center;
+                width: 420px;
+                font-size: 20px;
+                border-radius: 8px;
+                border: 2px solid #36394E;
+                transition: border .25s;
+                box-sizing: border-box;
+                cursor: pointer;
+                &:hover {
+                    border: 2px solid #5BC4FF;
+                }
+                .fa-map-marker-alt {
+                    justify-self: center;
+                    color: #5BC4FF;
+                }
+                .list__province {
 
-       }
+                }
+                .list__flag {
+                    background-color: white;
+                }
+            }
+        }
     }
     .five-days-weather {
         .five-days-weather__title {
