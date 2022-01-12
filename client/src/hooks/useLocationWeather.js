@@ -20,7 +20,7 @@ const useLocationWeather = (setCurrentHourBAWeather) => {
         let currentDayWeather = []
         let currentDay = new Date().getDate()
         if(currentDay.length === 1) currentDay = "0" + currentDay
-        console.log("arr", weather[0].date.split("/")[0], currentDay)
+        console.log("arr", weather)
         weather.forEach((item) => {
             console.log("levioza", typeof item.date.split("/")[0], typeof JSON.parse(item.date.split("/")[0]))
             if(JSON.parse(item.date.split("/")[0]) === currentDay) {
@@ -29,62 +29,40 @@ const useLocationWeather = (setCurrentHourBAWeather) => {
         })
         return currentDayWeather
     }
-    
-    const weatherState = () => {
-        // for (const weather of currentHourWeather) {
-        //     if(Math.round(weather.temperature) > 20) {
-        //         weather.state = "Soleado"
-        //         setBAWeather(BAWeather => [...BAWeather, weather])
-        //     }
-        //     if(Math.round(weather.temperature) < 20) {
-        //         weather.state = "Despejado"
-        //         setBAWeather(BAWeather => [...BAWeather, weather])
-        //     }
-        //     if(Math.round(weather.temperature) < 10) {
-        //         weather.state = "Frio"
-        //         setBAWeather(BAWeather => [...BAWeather, weather])
-        //     }
-        // }
-        // console.log("prikmerputti", currentHourWeather)
-        // localStorage.setItem('BAWeather', JSON.stringify(currentHourWeather))
-        // localStorage.setItem('currentHour', new Date().getHours())
-        // localStorage.setItem('currentDayBAWeather', JSON.stringify(currentDayWeather))
-        // setBAWeather(currentHourWeather)
-    }
 
     const csvFiveDaysWeatherToArray = (string) => {
-        const csv = string.split("\n");
-        delete csv[0];
-        const json = {};
+        const csv = string.split("\n")
+        delete csv[0]
+        const json = []
         for (let [_, value] of Object.entries(csv)) {
-          var location = value.split(",")[7];
-          if (!(location in json) && location !== "None\r" && location !== undefined)
-            json[location] = [];
+            var data_splitted = value.split(",")
+            var content = {}
+            content["station_name"] = data_splitted[0]
+            content["date"] = data_splitted[1]
+            content["hour"] = data_splitted[2]
+            content["temperature"] = data_splitted[3]
+            content["wind_direction"] = data_splitted[4]
+            content["wind_speed"] = data_splitted[5]
+            content["precipitation_mm"] = data_splitted[6]
+            content["location"] = data_splitted[7]
+            if(data_splitted.length === 8) json.push(content)
         }
-        for (let [_, value] of Object.entries(csv)) {
-          var data_splitted = value.split(",");
-          var location = data_splitted[7];
-          var content = {};
-          content["station_name"] = data_splitted[0];
-          content["date"] = data_splitted[1];
-          content["hour"] = data_splitted[2];
-          content["temperature"] = data_splitted[3];
-          content["wind_direction"] = data_splitted[4];
-          content["wind_speed"] = data_splitted[5];
-          content["precipitation_mm"] = data_splitted[6];
-          if (json[location]) json[location].push(content);
-        }
-        return json;
+        return json
     }
 
     const getUserLocationWeather = (weather, position) => {
         const latitude = position.coords.latitude
         const longitude = position.coords.longitude
-        let closestLocation = 0
-        for (const item in weather) {
-            if(Math.abs((Math.abs(latitude - item.split(' ')[0]) + Math.abs(longitude - item.split(' ')[1]))) > closestLocation) closestLocation = weather[item] //verifica la locacion mas cercana a partir del valor absoluto de la resta de ambas latitudes y longitudes y guarda su referencia
-        }
-        console.log(closestLocation)
+        let closestLocation = {province: "", diference: 100}
+        let locationWeather = []
+        weather.forEach((item) => {
+            const closestLocationDiference = Math.abs((Math.abs(latitude - item.location.split(' ')[0]) + Math.abs(longitude - item.location.split(' ')[1]))) 
+            locationWeather.push({province: item.station_name, diference: closestLocationDiference}) //a cada provincia le da su numero de diferencia
+        })
+        locationWeather.forEach((item) => { //luego se saca el menor numero de diferencia que significa la provincia mas cercana
+            if(item.diference < closestLocation.diference) closestLocation = item
+        })
+        console.log("closestLocation", locationWeather)
         return closestLocation
     }
 
@@ -100,13 +78,21 @@ const useLocationWeather = (setCurrentHourBAWeather) => {
         setCurrentHourBAWeather(currentHourWeather)
     }
 
+    const getFiveDaysWeatherFromLocation = (userLocationWeather, weather) => {
+        return weather.filter((item) => {
+            return item.station_name === userLocationWeather.province
+        })
+    }
+
     const getFiveDaysForecast = async (position) => {
         const currentDay = ("0" + new Date().getDate()).slice(-2)
         // https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-${currentDay}.csv
         await axios.get(`https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-11.csv`).then((res) => {
             const weather = csvFiveDaysWeatherToArray(res.data)
+            console.log("consolelog", weather)
             const userLocationWeather = getUserLocationWeather(weather, position)
-            filterUserLocationWeather(userLocationWeather, weather)
+            const fiveDaysWeatherUserLocation = getFiveDaysWeatherFromLocation(userLocationWeather, weather)
+            filterUserLocationWeather(fiveDaysWeatherUserLocation, weather)
             // console.log("cloests", closestLocation)
             // currentDayLocationsFilter(closestLocation)
             // currentHourLocationsFilter(closestLocation)

@@ -68,3 +68,44 @@
         }
     }
 }
+
+@media screen and (min-width: 320px) and (max-width: 720px) {
+    .sidebar-container {
+        display: none;
+        width: 300px;
+        height: auto;
+        background-color: #36394E;
+        color: white;
+        font-size: 23px;
+        .sidebar {
+            .logo-container {
+                display: flex;
+                // justify-content: center;
+                margin-left: 30px;
+                margin-top: 20px;
+                .logo-container__logo {
+    
+                }
+            }
+            .menu-container {
+                .menu-container__title {
+                    color: #5BC4FF;
+                    margin-left: 30px;
+                }
+                @include list;
+            }
+            .support-container {
+                margin-top: 80px;
+                .support-container__title {
+                    color: #5BC4FF;
+                    margin-left: 30px;
+                }
+                @include list;
+                .fab {
+                    width: 50px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}

@@ -169,4 +169,71 @@
             }
         }
     }
-} 
+}
+
+@media screen and (min-width: 320px) and (max-width: 720px) {
+    .home {
+        width: 100%;
+        margin: 0;
+        font-size: 15px;
+        .todays-weather {
+            .weather__title-container {
+                flex-direction: column;
+                .weather__title {
+                    text-align: center;
+                }
+                .see-more {
+                    margin-left: 0;
+                    .see-more__button {
+                        box-shadow: none;
+                    }
+                }
+            }
+            .cards-container {
+                .card {
+                    &:nth-child(1) {
+                        .temperature {
+                            .fa-sun {
+                            }
+                            .fa-moon {
+                            }
+                            .temperature__data {
+                            }
+                        }
+                        .weather-data {
+                            .weather__text {
+                            }
+                        }
+                    }
+                    .temperature {
+                        .fa-sun {
+                        }
+                        .fa-moon {
+                        }
+                        .temperature__data {
+                        }
+                        .card-data {
+                            .card__hour {
+                            }
+                            .wind-data {
+                                display: flex;
+                                align-items: center;
+                            }
+                        }
+                    }
+                    .weather-data {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        .weather__text {
+                        }
+                        .weather__location {
+                        }
+                    }
+                }
+            }
+            .chart {
+            }
+        }
+    }
+}
