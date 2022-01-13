@@ -18,9 +18,9 @@ export default function Weather() {
                         showWeatherList && weatherResults.map((item, id) => {
                             return (
                                 <li className="list__item" key={id} onClick={() => getWeatherFromLocation(item.station_name)}>
-                                    <i className="fas fa-map-marker-alt"></i>
+                                    {item.station_name ? <i className="fas fa-map-marker-alt"></i> : <div></div>}
                                     <p className="list__province">{item.station_name ? formatProvince(item.station_name) : item}</p>
-                                    <img className="list__flag" src="https://www.meteored.com.ar/css/2018/icons/banderas18/67.svg" alt="flag"></img>
+                                    {item.station_name ? <img className="list__flag" src="https://www.meteored.com.ar/css/2018/icons/banderas18/67.svg" alt="flag"></img> : <div></div>}
                                 </li>
                             )
                         })
@@ -61,7 +61,7 @@ export default function Weather() {
                                     <p className="list__precipitation">{weather.precipitation_mm}%</p>
                                 </div>
                                 <div className="wind-direction">
-                                    <i className="fas fa-arrow-up"></i>
+                                    <i className="fas fa-arrow-up" style={{"transform": `rotate(${weather.wind_direction}deg)`}}></i>
                                     <p className="list__wind-direction">{getDirection(weather.wind_direction)}</p>
                                 </div>
                                 <div className="wind-speed">

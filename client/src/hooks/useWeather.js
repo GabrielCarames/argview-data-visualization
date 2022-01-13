@@ -35,11 +35,13 @@ const useWeather = () => {
     }, [searchWeather])
 
     const getWeatherFromLocation = (location) => {
-        const weatherFromLocation = weather.filter((item) => { return item.station_name === location })
-        const currentHourWeatherLocation = currentHourLocationsFilter(weatherFromLocation)
-        const currentDayWeatherLocation = currentDayLocationsFilter(weatherFromLocation)
-        setCurrentHourBAWeather(currentHourWeatherLocation)
-        setCurrentDayBAWeather(currentDayWeatherLocation)
+        if(location) {
+            const weatherFromLocation = weather.filter((item) => { return item.station_name === location })
+            const currentHourWeatherLocation = currentHourLocationsFilter(weatherFromLocation)
+            const currentDayWeatherLocation = currentDayLocationsFilter(weatherFromLocation)
+            setCurrentHourBAWeather(currentHourWeatherLocation)
+            setCurrentDayBAWeather(currentDayWeatherLocation)
+        }
     }
 
     window.onclick = (event) => {

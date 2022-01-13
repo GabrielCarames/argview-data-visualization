@@ -91,6 +91,7 @@
                 box-sizing: border-box;
                 box-shadow: 0px 4px 20px 1px rgba(0, 0, 0, 0.76);
                 transition: background-color .25s;
+                cursor: pointer;
                 &:nth-child(1) {
                     border: 2px solid #5BC4FF;
                 }

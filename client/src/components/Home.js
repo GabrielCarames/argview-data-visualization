@@ -22,9 +22,11 @@ export default function Home() {
                             return (
                                 <figure className="card" id="card" key={id}>
                                     <div className="temperature">
-                                        <i className="fas fa-sun"></i>
-                                        <i className="fas fa-moon"></i>
-                                        <span className="temperature__data">{Math.round(weather.temperature)}°C</span>
+                                        <div className="header">
+                                            <i className="fas fa-sun"></i>
+                                            <i className="fas fa-moon"></i>
+                                            <span className="temperature__data">{Math.round(weather.temperature)}°C</span>
+                                        </div>
                                         {id === 0 &&
                                             <div className="card-data">
                                                 <p className="card__hour">Hora {weather.hour}</p>
@@ -46,10 +48,10 @@ export default function Home() {
                         })
                     }
                 </div>
-                <div className="chart">
+                {/* <div className="chart"> */}
                     {/* <Line options={options} data={data}/> */}
                     {/* {renderBarChart} */}
-                </div>
+                {/* </div> */}
 
             </div>
         </div>
