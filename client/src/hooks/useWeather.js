@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-
+import useLocationWeather from "./useLocationWeather"
 
 const useWeather = () => {
     const [weather, setWeather] = useState([])
@@ -7,6 +7,9 @@ const useWeather = () => {
     const [currentHourBAWeather, setCurrentHourBAWeather] = useState([])
     const [currentDayBAWeather, setCurrentDayBAWeather] = useState([])
     const [searchWeather, setSearchWeather] = useState()
+    const [showWeatherList, setShowWeatherList] = useState(false)
+    const {currentDayLocationsFilter, currentHourLocationsFilter} = useLocationWeather()
+    const currentHourAndDayWeather = currentHourLocationsFilter(currentDayLocationsFilter(weather))
 
     useEffect(() => {
         setCurrentHourBAWeather(JSON.parse(localStorage.getItem('currentHourBAWeather')))
@@ -15,18 +18,35 @@ const useWeather = () => {
     }, [])
 
     useEffect(() => {
-        // if(searchWeather === '') setLoader(false)
-        if(searchWeather) {
-            // setLoader(true)
+        if(searchWeather && searchWeather !== undefined && !/^ *$/.test(searchWeather)) {
             const timer = setTimeout(() => {
-                if(searchWeather !== undefined){
-                    console.log("putito", weather)
-                    // setLoader(false)
-                }
-            }, 1000);
+                let results = []
+                currentDayLocationsFilter(currentHourAndDayWeather).forEach((item) => {
+                    if(item.station_name.toLowerCase().replace('_',' ').indexOf(searchWeather.toLowerCase()) >= 0) {
+                        results.push(item)
+                    }
+                })
+                if(results.length === 0) results.push("No se encontraron resultados")
+                setShowWeatherList(true)
+                setWeatherResults(results)
+            }, 500);
             return () => clearTimeout(timer);
         }
     }, [searchWeather])
+
+    const getWeatherFromLocation = (location) => {
+        const weatherFromLocation = weather.filter((item) => { return item.station_name === location })
+        const currentHourWeatherLocation = currentHourLocationsFilter(weatherFromLocation)
+        const currentDayWeatherLocation = currentDayLocationsFilter(weatherFromLocation)
+        setCurrentHourBAWeather(currentHourWeatherLocation)
+        setCurrentDayBAWeather(currentDayWeatherLocation)
+    }
+
+    window.onclick = (event) => {
+        const weatherList = document.getElementById('weather-list')
+        if(showWeatherList && !weatherList.contains(event.target) && event.target.className !== 'list__item' && event.target.className !== 'searcher__input') setShowWeatherList(false)
+        if(event.target.className === 'searcher__input') setShowWeatherList(true)
+    }
 
     const directions = ["Norte", "Noreste", "Este", "Sureste", "Sur", "Suroeste", "Oeste", "Noroeste"]
 
@@ -54,7 +74,7 @@ const useWeather = () => {
         return Math.round((Math.round(degrees) * (9 / 5)) + 32)
     }
 
-    return {currentHourBAWeather, currentDayBAWeather, getDirection, getWeatherFromDay, activeCurrentHourItem, celsiusToFahrenheit, setSearchWeather, weatherResults}
+    return {currentHourBAWeather, currentDayBAWeather, getDirection, getWeatherFromDay, activeCurrentHourItem, celsiusToFahrenheit, setSearchWeather, weatherResults, getWeatherFromLocation, showWeatherList}
 }
 
 export default useWeather

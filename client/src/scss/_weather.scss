@@ -36,7 +36,13 @@
             padding-left: 0;
             background-color: #36394E;
             width: 420px;
+            max-height: 180px;
+            overflow-y: auto;
+            overflow-x: hidden;
             margin: 0;
+            z-index: 2;
+            position: absolute;
+            border-bottom: 3px solid #28293B;
             .list__item {
                 display: grid;
                 grid-template-columns: 40px 330px 50px;

@@ -20,9 +20,7 @@ const useLocationWeather = (setCurrentHourBAWeather) => {
         let currentDayWeather = []
         let currentDay = new Date().getDate()
         if(currentDay.length === 1) currentDay = "0" + currentDay
-        console.log("arr", weather)
         weather.forEach((item) => {
-            console.log("levioza", typeof item.date.split("/")[0], typeof JSON.parse(item.date.split("/")[0]))
             if(JSON.parse(item.date.split("/")[0]) === currentDay) {
                 currentDayWeather.push(item)
             }
@@ -100,7 +98,7 @@ const useLocationWeather = (setCurrentHourBAWeather) => {
         })
     }
 
-    return {getFiveDaysForecast}
+    return {getFiveDaysForecast, currentDayLocationsFilter, currentHourLocationsFilter}
 }
 
 export default useLocationWeather

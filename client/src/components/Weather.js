@@ -2,7 +2,7 @@ import useHome from "../hooks/useHome"
 import useWeather from "../hooks/useWeather"
 
 export default function Weather() {
-    const {currentHourBAWeather, currentDayBAWeather, getDirection, getWeatherFromDay, activeCurrentHourItem, celsiusToFahrenheit, setSearchWeather, weatherResults} = useWeather()
+    const {currentHourBAWeather, currentDayBAWeather, getDirection, getWeatherFromDay, activeCurrentHourItem, celsiusToFahrenheit, setSearchWeather, weatherResults, getWeatherFromLocation, showWeatherList} = useWeather()
     const {esDateToDayNameenDate, esDateToDayAndMonthhenDate, formatProvince} = useHome()
 
     return (
@@ -13,17 +13,18 @@ export default function Weather() {
                     <i className="fas fa-search"></i>
                     <input className="searcher__input" type="text" placeholder="Buscar" onChange={e => setSearchWeather(e.target.value)} />
                 </div>
-                <ul className="results list">
-                    <li className="list__item">
-                        <i className="fas fa-map-marker-alt"></i>
-                        <p className="list__province">Buenos Aires</p>
-                        <img className="list__flag" src="https://www.meteored.com.ar/css/2018/icons/banderas18/67.svg" alt="flag"></img>
-                    </li>
-                    <li className="list__item">
-                        <i className="fas fa-map-marker-alt"></i>
-                        <p className="list__province">Buenos Aires</p>
-                        <img className="list__flag" src="https://www.meteored.com.ar/css/2018/icons/banderas18/67.svg" alt="flag"></img>
-                    </li>
+                <ul className="results list" id="weather-list">
+                    {
+                        showWeatherList && weatherResults.map((item, id) => {
+                            return (
+                                <li className="list__item" key={id} onClick={() => getWeatherFromLocation(item.station_name)}>
+                                    <i className="fas fa-map-marker-alt"></i>
+                                    <p className="list__province">{item.station_name ? formatProvince(item.station_name) : item}</p>
+                                    <img className="list__flag" src="https://www.meteored.com.ar/css/2018/icons/banderas18/67.svg" alt="flag"></img>
+                                </li>
+                            )
+                        })
+                    }
                 </ul>
             </div>
             <div className="five-days-weather">
