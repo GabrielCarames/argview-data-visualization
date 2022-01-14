@@ -23,20 +23,78 @@
                     text-align: center;
                 }
                 .list__title {
+                    transition: all 0s .1s;
                     text-decoration: none;
                     color: white;
+                    height: 27px;
+                    width: 100px;
                 }
             }
         }
     }
 }
 
+$enabledWidth: 300px;
+$disabledWidth: 90px;
+
 .sidebar-container {
-    width: 300px;
+    width: $enabledWidth;
     height: auto;
     background-color: #36394E;
     color: white;
     font-size: 23px;
+    transition: width .25s;
+    &.disabled {
+        transition: opacity 2s, width .25s;
+        width: $disabledWidth;
+        .sidebar {
+            .logo-container {
+                margin-left: 10px;
+                margin-top: 43px;
+                margin-bottom: 61px;
+                .logo-container__logo {
+                    width: 70px;
+                    height: auto;
+                }
+            }
+            .menu-container {
+                .menu-container__title {
+                    transition: opacity .1s;
+                    opacity: 0;
+                }
+                .list{
+                    .list__href {
+                        .list__item {
+                            .list__title {
+                                transition: opacity .0001s;
+                                opacity: 0;
+                                height: 0;
+                                width: 0;
+                            }
+                        }
+                    }
+                }  
+            }
+            .support-container {
+                .support-container__title {
+                    transition: opacity .1s;
+                    opacity: 0;
+                }
+                .list{
+                    .list__href {
+                        .list__item {
+                            .list__title {
+                                transition: opacity .0001s;
+                                opacity: 0;
+                                height: 0;
+                                width: 0;
+                            }
+                        }
+                    }
+                }  
+            }
+        }
+    }
     .sidebar {
         .logo-container {
             display: flex;
@@ -66,6 +124,33 @@
                 text-align: center;
             }
         }
+    }
+}
+
+
+.burger-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: white;
+    margin: 20px;
+    margin-left: calc(#{$enabledWidth} + 20px);
+    position: absolute;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 3000px;
+    color: #5BC4FF;
+    &.disabled {
+        margin-left: calc(#{$disabledWidth} + 20px);
+    }
+    &:hover {
+        background-color: #5BC4FF;
+        color: white;
+    }
+    .fa-bars {
+
     }
 }
 
