@@ -1,9 +1,11 @@
+import { useState } from "react"
 import useHome from "../hooks/useHome"
 import useWeather from "../hooks/useWeather"
 
 export default function Weather() {
     const {currentHourBAWeather, currentDayBAWeather, getDirection, getWeatherFromDay, activeCurrentHourItem, celsiusToFahrenheit, setSearchWeather, weatherResults, getWeatherFromLocation, showWeatherList} = useWeather()
     const {esDateToDayNameenDate, esDateToDayAndMonthhenDate, formatProvince} = useHome()
+    const [activeCard, setActiveCard] = useState(0)
 
     return (
         <div className="weather-container">
@@ -32,21 +34,23 @@ export default function Weather() {
                 <ul className="list">
                     {currentHourBAWeather && currentHourBAWeather.length >= 1 && currentHourBAWeather.map((weather, id) => {
                         return (
-                            <li className="list__item" key={id} onClick={() => getWeatherFromDay(weather)}>
-                                <p className="list__day">{id !== 0 ? esDateToDayNameenDate(weather.date) : "Hoy"}</p>
-                                <p className="list__date">{esDateToDayAndMonthhenDate(weather.date)}</p>
+                            <li className={activeCard === id ? "list__item active" : "list__item"} key={id} onClick={() => {getWeatherFromDay(weather); setActiveCard(id)}}>
+                                <div className="date-container">
+                                    <span className="list__day">{id !== 0 ? esDateToDayNameenDate(weather.date) : "Hoy"}</span>
+                                    <span className="list__date">{esDateToDayAndMonthhenDate(weather.date)}</span>
+                                </div>
                                 <i className="fas fa-sun"></i>
                                 <i className="fas fa-moon"></i>
-                                <p className="list__temperature">{weather.temperature}°</p>
-                                <p className="list__wind-direction">{getDirection(weather.wind_direction)}</p>
-                                <p className="list__wind-speed">{weather.wind_speed}km/h</p>
+                                <span className="list__temperature">{weather.temperature}°</span>
+                                <span className="list__wind-direction">{getDirection(weather.wind_direction)}</span>
+                                <span className="list__wind-speed">{weather.wind_speed}km/h</span>
                             </li>
                         )
                     })}
                 </ul>
             </div>
             <div className="today-weather">
-                <h4 className="today-weather__title">Clima en {currentDayBAWeather && currentDayBAWeather.length >= 1 && formatProvince(currentHourBAWeather[0].station_name)} hoy, {currentDayBAWeather && currentDayBAWeather.length >= 1 && esDateToDayNameenDate(currentDayBAWeather[0].date)} {currentDayBAWeather && currentDayBAWeather.length >= 1 && esDateToDayAndMonthhenDate(currentDayBAWeather[0].date)}</h4>
+                <h4 className="today-weather__title">Clima en {currentDayBAWeather && currentDayBAWeather.length >= 1 && formatProvince(currentHourBAWeather[0].station_name)} hoy, &nbsp;{currentDayBAWeather && currentDayBAWeather.length >= 1 && esDateToDayNameenDate(currentDayBAWeather[0].date)} {currentDayBAWeather && currentDayBAWeather.length >= 1 && esDateToDayAndMonthhenDate(currentDayBAWeather[0].date)}</h4>
                 <ul className="list">
                     {currentDayBAWeather && currentDayBAWeather.length >= 1 && currentDayBAWeather.map((weather, id) => {
                     // console.log("jonhfus", weather.hour.replace('Hs',''))
@@ -55,18 +59,21 @@ export default function Weather() {
                                 <p className="list__hour">{weather.hour}</p>
                                 <i className="fas fa-sun"></i>
                                 <i className="fas fa-moon"></i>
-                                <p className="list__temperature">{Math.round(weather.temperature)}°C/{celsiusToFahrenheit(weather.temperature)}°F</p>
+                                <p className="list__temperature">
+                                    <span className="list__celsius">{Math.round(weather.temperature)}°C/</span>
+                                    <span className="list__fahrenheit">{celsiusToFahrenheit(weather.temperature)}°F</span>
+                                </p>
                                 <div className="weather__precipitation">
                                     <i className="fas fa-cloud-rain"></i>
-                                    <p className="list__precipitation">{weather.precipitation_mm}%</p>
+                                    <span className="list__precipitation">{weather.precipitation_mm}%</span>
                                 </div>
                                 <div className="wind-direction">
                                     <i className="fas fa-arrow-up" style={{"transform": `rotate(${weather.wind_direction}deg)`}}></i>
-                                    <p className="list__wind-direction">{getDirection(weather.wind_direction)}</p>
+                                    <span className="list__wind-direction">{getDirection(weather.wind_direction)}</span>
                                 </div>
                                 <div className="wind-speed">
                                     <i className="fas fa-wind"></i>
-                                    <p className="list__wind-speed">{weather.wind_speed}km/h</p>
+                                    <span className="list__wind-speed">{weather.wind_speed}km/h</span>
                                 </div>
                             </li>
                         )

@@ -11,7 +11,7 @@ export default function Home() {
                     {currentHourBAWeather && currentHourBAWeather.length >= 1 && console.log(currentHourBAWeather)}
             <div className="todays-weather weather">
                 <div className="weather__title-container">
-                    <h2 className="weather__title">Pronostico de cinco dias en {currentHourBAWeather && currentHourBAWeather.length >= 1 && formatProvince(currentHourBAWeather[0].station_name)}</h2>
+                    <h2 className="weather__title">Pronóstico de cinco dias en {currentHourBAWeather && currentHourBAWeather.length >= 1 && formatProvince(currentHourBAWeather[0].station_name)}</h2>
                     <Link className="see-more" to="/weather"> 
                         <button className="see-more__button">Ver más detalles</button>
                     </Link>
