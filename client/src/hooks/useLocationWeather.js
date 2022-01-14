@@ -20,6 +20,7 @@ const useLocationWeather = (setCurrentHourBAWeather) => {
         let currentDayWeather = []
         let currentDay = new Date().getDate()
         if(currentDay.length === 1) currentDay = "0" + currentDay
+        console.log("waht", weather)
         weather.forEach((item) => {
             if(JSON.parse(item.date.split("/")[0]) === currentDay) {
                 currentDayWeather.push(item)
@@ -85,7 +86,7 @@ const useLocationWeather = (setCurrentHourBAWeather) => {
     const getFiveDaysForecast = async (position) => {
         const currentDay = ("0" + new Date().getDate()).slice(-2)
         // https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-${currentDay}.csv
-        await axios.get(`https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-11.csv`).then((res) => {
+        await axios.get(`https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-${currentDay}.csv`).then((res) => {
             const weather = csvFiveDaysWeatherToArray(res.data)
             console.log("consolelog", weather)
             const userLocationWeather = getUserLocationWeather(weather, position)

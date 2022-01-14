@@ -9,7 +9,7 @@ const useWeather = () => {
     const [searchWeather, setSearchWeather] = useState()
     const [showWeatherList, setShowWeatherList] = useState(false)
     const {currentDayLocationsFilter, currentHourLocationsFilter} = useLocationWeather()
-    const currentHourAndDayWeather = currentHourLocationsFilter(currentDayLocationsFilter(weather))
+    const currentHourAndDayWeather = weather.length >= 1 && currentHourLocationsFilter(currentDayLocationsFilter(weather))
 
     useEffect(() => {
         setCurrentHourBAWeather(JSON.parse(localStorage.getItem('currentHourBAWeather')))
