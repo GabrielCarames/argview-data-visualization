@@ -26,9 +26,6 @@
     margin-top: 60px;
     font-size: 25px;
     .searcher {
-        .searcher__title {
-
-        }
         .input-container {
             display: flex;
             align-items: center;
@@ -84,9 +81,6 @@
                     justify-self: center;
                     color: #5BC4FF;
                 }
-                .list__province {
-
-                }
                 .list__flag {
                     background-color: white;
                 }
@@ -94,8 +88,6 @@
         }
     }
     .five-days-weather {
-        .five-days-weather__title {
-        }
         .list {
             display: flex;
             gap: 30px;
@@ -162,9 +154,6 @@
         }
     }
     .today-weather {
-        .today-weather__title {
-
-        }
         .list {
             display: grid;
             grid-auto-rows: 50px;
@@ -194,8 +183,6 @@
                 .list__hour {
                     padding-left: 20px;
                 }
-                .fas {
-                }
                 .fa-sun {
                     font-size: 30px;
                     color: yellow;
@@ -203,8 +190,6 @@
                 .fa-moon {
                     display: none;
                     font-size: 30px;
-                }
-                .list__temperature {
                 }
                 .weather__precipitation {
                     display: flex;
@@ -258,17 +243,11 @@
             }
             .input-container {
                 width: 100%;
-                .fa-search {
-                }
-               .searcher__input {
-               }
             }
             .results {
                 width: 100%;
                 .list__item {
                     width: 100%;
-                    .fa-map-marker-alt {
-                    }
                 }
             }
         }
@@ -278,13 +257,11 @@
             }
             .list {
                 flex-direction: column;
-                // font-size: 13px;
                 font-size: 4vw;
                 @include fluid-type(font-size, 600px, 1200px, 13px, 20px);
                 gap: 10px;
                 .list__item {
                     display: grid;
-                    // grid-template-columns: 62px 40px 40px 50px 45px;
                     grid-template-columns: 20% 26% 16% 16% 22%;
                     grid-template-rows: 66px;
                     width: 100%;
@@ -294,8 +271,6 @@
                         display: flex;
                         align-items: flex-start;
                         padding: 10px;
-                        .list__day {
-                        }
                         .list__date {
                             margin-top: 0;
                         }
@@ -304,10 +279,6 @@
                         font-size: 25px;
                         margin: 0;
                         justify-self: center;
-                    }
-                    .fa-sun {
-                    }
-                    .fa-moon {
                     }
                     .list__temperature {
                         margin: 0;
@@ -334,7 +305,6 @@
                     @include fluid-type(font-size, 600px, 1200px, 13px, 20px);
                     grid-template-columns: 17% 14% 14% 15% 20% 20%;
                     .fas {
-                        // font-size: 15px;
                         @include fluid-type(font-size, 600px, 1200px, 15px, 20px);
                     }
                     .list__hour {
@@ -356,18 +326,10 @@
                         display: flex;
                         flex-direction: column;
                         justify-self: center;
-                        .list__celsius {
-
-                        }
-                        .list__fahrenheit {
-                            
-                        }
                     }
                     .weather__precipitation {
                         flex-direction: column;
                         justify-self: center;
-                        .fa-cloud-rain {
-                        }
                         .list__precipitation {
                             margin-left: 5px;
                         }
@@ -375,8 +337,6 @@
                     .wind-direction {
                         flex-direction: column;
                         justify-self: center;
-                        .fa-arrow-up {
-                        }
                         .list__wind-direction {
                             margin-left: 0;
                         }
@@ -385,25 +345,9 @@
                         flex-direction: column;
                         justify-self: left;
                         padding: 0;
-                        .list__wind-speed {
-                        }
                     }
                 }
             }
         }
     }
 }
-
-// @media screen and (min-width: 769px) and (max-width: 1500px) {
-//     .weather-container {
-//         .five-days-weather {
-//             .five-days-weather__title {
-//                 font-size: 23px;
-//             }
-//             .list {
-//                 font-size: 13px;
-//             }
-//         }
-//     }
-// }
-

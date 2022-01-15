@@ -7,9 +7,6 @@
         .weather__title-container {
             display: flex;
             align-items: center;
-            .weather__title {
-
-            }
             .see-more {
                 margin-left: 60px;
                 .see-more__button {
@@ -244,8 +241,6 @@
                             .fa-sun {
                                 font-size: 40px;
                             }
-                            .fa-moon {
-                            }
                             .temperature__data {
                                 font-size: 40px;
                             }
@@ -255,8 +250,6 @@
                             flex-direction: column-reverse;
                             font-size: 26px;
                             text-align: center;
-                            .card__hour {
-                            }
                             .wind-data {
                                 display: flex;
                                 align-items: center;
@@ -267,10 +260,6 @@
                         display: flex;
                         flex-direction: column;
                         align-items: center;
-                        .weather__text {
-                        }
-                        .weather__location {
-                        }
                     }
                 }
             }
@@ -351,8 +340,6 @@
                             .fa-sun {
                                 font-size: 40px;
                             }
-                            .fa-moon {
-                            }
                             .temperature__data {
                                 font-size: 40px;
                             }
@@ -362,8 +349,6 @@
                             flex-direction: column-reverse;
                             font-size: 26px;
                             text-align: center;
-                            .card__hour {
-                            }
                             .wind-data {
                                 display: flex;
                                 align-items: center;
@@ -374,10 +359,6 @@
                         display: flex;
                         flex-direction: column;
                         align-items: center;
-                        .weather__text {
-                        }
-                        .weather__location {
-                        }
                     }
                 }
             }
