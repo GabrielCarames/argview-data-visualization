@@ -13,7 +13,7 @@ const useDefaultWeather = (filterUserLocationWeather, csvFiveDaysWeatherToArray)
     const getTodayWeatherData = async () => {
         const currentDay = ("0" + new Date().getDate()).slice(-2)
         try {
-            await axios.get(`https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-14.csv`).then((res) => {
+            await axios.get(`https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/2022-01-${currentDay}.csv`).then((res) => {
                 const weather = csvFiveDaysWeatherToArray(res.data)
                 const BuenosAiresWeather = buenosAiresWeatherFilter(weather)
                 filterUserLocationWeather(BuenosAiresWeather, weather)
