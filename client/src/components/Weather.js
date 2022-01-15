@@ -1,6 +1,6 @@
 import { useState } from "react"
-import useHome from "../hooks/useHome"
 import useWeather from "../hooks/useWeather"
+import useHome from "../hooks/useHome"
 
 export default function Weather() {
     const {currentHourBAWeather, currentDayBAWeather, getDirection, getWeatherFromDay, activeCurrentHourItem, celsiusToFahrenheit, setSearchWeather, weatherResults, getWeatherFromLocation, showWeatherList} = useWeather()
@@ -50,10 +50,9 @@ export default function Weather() {
                 </ul>
             </div>
             <div className="today-weather">
-                <h4 className="today-weather__title">Clima en {currentDayBAWeather && currentDayBAWeather.length >= 1 && formatProvince(currentHourBAWeather[0].station_name)} hoy, &nbsp;{currentDayBAWeather && currentDayBAWeather.length >= 1 && esDateToDayNameenDate(currentDayBAWeather[0].date)} {currentDayBAWeather && currentDayBAWeather.length >= 1 && esDateToDayAndMonthhenDate(currentDayBAWeather[0].date)}</h4>
+                <h4 className="today-weather__title">Clima en {currentDayBAWeather && currentDayBAWeather.length >= 1 && formatProvince(currentHourBAWeather[0].station_name)}, &nbsp;{currentDayBAWeather && currentDayBAWeather.length >= 1 && esDateToDayNameenDate(currentDayBAWeather[0].date)} {currentDayBAWeather && currentDayBAWeather.length >= 1 && esDateToDayAndMonthhenDate(currentDayBAWeather[0].date)}</h4>
                 <ul className="list">
                     {currentDayBAWeather && currentDayBAWeather.length >= 1 && currentDayBAWeather.map((weather, id) => {
-                    // console.log("jonhfus", weather.hour.replace('Hs',''))
                         return (
                             <li className={activeCurrentHourItem(weather)} key={id}>
                                 <p className="list__hour">{weather.hour}</p>

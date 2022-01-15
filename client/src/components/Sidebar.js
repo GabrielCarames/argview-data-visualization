@@ -1,8 +1,7 @@
-import React from 'react'
-import logo from '../images/logo.png'
-import shortLogo from '../images/shortLogo.PNG'
 import { Link } from 'react-router-dom'
 import useSidebar from "../hooks/useSidebar"
+import shortLogo from '../images/shortLogo.PNG'
+import logo from '../images/logo.png'
 
 export default function Sidebar() {
     const {showSidebar, switchSidebar} = useSidebar()
@@ -14,8 +13,8 @@ export default function Sidebar() {
                     <div className="logo-container">
                         {
                             showSidebar 
-                            ? <img className="logo-container__logo" src={logo} alt="" />
-                            : <img className="logo-container__logo" src={shortLogo} alt="" />
+                            ? <img className="logo-container__logo" src={logo} alt="logo" />
+                            : <img className="logo-container__logo" src={shortLogo} alt="shortLogo" />
                         }
                     </div>
                     <div className="menu-container">

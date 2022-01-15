@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
-import useLocationWeather from "./useLocationWeather"
+import useHome from "./useHome"
 
 const useWeather = () => {
-    const [weather, setWeather] = useState([])
-    const [weatherResults, setWeatherResults] = useState([])
     const [currentHourBAWeather, setCurrentHourBAWeather] = useState([])
     const [currentDayBAWeather, setCurrentDayBAWeather] = useState([])
-    const [searchWeather, setSearchWeather] = useState()
     const [showWeatherList, setShowWeatherList] = useState(false)
-    const {currentDayLocationsFilter, currentHourLocationsFilter} = useLocationWeather()
+    const [weatherResults, setWeatherResults] = useState([])
+    const [searchWeather, setSearchWeather] = useState()
+    const [weather, setWeather] = useState([])
+    const {currentDayLocationsFilter, currentHourLocationsFilter} = useHome()
     const currentHourAndDayWeather = weather.length >= 1 && currentHourLocationsFilter(currentDayLocationsFilter(weather))
 
     useEffect(() => {
@@ -22,9 +22,7 @@ const useWeather = () => {
             const timer = setTimeout(() => {
                 let results = []
                 currentDayLocationsFilter(currentHourAndDayWeather).forEach((item) => {
-                    if(item.station_name.toLowerCase().replace('_',' ').indexOf(searchWeather.toLowerCase()) >= 0) {
-                        results.push(item)
-                    }
+                    if(item.station_name.toLowerCase().replace('_',' ').indexOf(searchWeather.toLowerCase()) >= 0) results.push(item)
                 })
                 if(results.length === 0) results.push("No se encontraron resultados")
                 setShowWeatherList(true)
@@ -59,9 +57,7 @@ const useWeather = () => {
 
     const getWeatherFromDay = (weather) => {
         const BAWeather = JSON.parse(localStorage.getItem('BAWeather'))
-        const weatherFromDay = BAWeather.filter((item) => {
-            return item.date.split('/')[0] === weather.date.split('/')[0]
-        })
+        const weatherFromDay = BAWeather.filter((item) => { return item.date.split('/')[0] === weather.date.split('/')[0] })
         setCurrentDayBAWeather(weatherFromDay) 
     }
 
@@ -72,9 +68,7 @@ const useWeather = () => {
         else return "list__item"
     }
 
-    const celsiusToFahrenheit = (degrees) => {
-        return Math.round((Math.round(degrees) * (9 / 5)) + 32)
-    }
+    const celsiusToFahrenheit = (degrees) => { return Math.round((Math.round(degrees) * (9 / 5)) + 32) }
 
     return {currentHourBAWeather, currentDayBAWeather, getDirection, getWeatherFromDay, activeCurrentHourItem, celsiusToFahrenheit, setSearchWeather, weatherResults, getWeatherFromLocation, showWeatherList}
 }

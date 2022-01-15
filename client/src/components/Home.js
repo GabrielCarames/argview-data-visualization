@@ -1,14 +1,11 @@
-import useHome from "../hooks/useHome";
 import { Link } from 'react-router-dom'
+import useHome from "../hooks/useHome"
 
 export default function Home() {
-    
-    const {BAfires, currentHourBAWeather, checkCurrentHour, formatProvince, esDateToDayNameenDate, esDateToDayAndMonthhenDate, filterWeatherFromToday} = useHome()
+    const {currentHourBAWeather, formatProvince, esDateToDayNameenDate, esDateToDayAndMonthhenDate} = useHome()
 
     return (
-        
         <div className="home">
-                    {currentHourBAWeather && currentHourBAWeather.length >= 1 && console.log(currentHourBAWeather)}
             <div className="todays-weather weather">
                 <div className="weather__title-container">
                     <h2 className="weather__title">Pronóstico de cinco dias en {currentHourBAWeather && currentHourBAWeather.length >= 1 && formatProvince(currentHourBAWeather[0].station_name)}</h2>
@@ -48,11 +45,6 @@ export default function Home() {
                         })
                     }
                 </div>
-                {/* <div className="chart"> */}
-                    {/* <Line options={options} data={data}/> */}
-                    {/* {renderBarChart} */}
-                {/* </div> */}
-
             </div>
         </div>
     )

@@ -1,48 +1,20 @@
-import axios from 'axios';
 import { useEffect, useState } from "react";
-import useDefaultWeather from "./useDefaultWeather";
 import useLocationWeather from "./useLocationWeather";
+import useDefaultWeather from "./useDefaultWeather";
 
 const useHome = () => {
-    const [BAfires, setBAfires] = useState([])
     const [currentHourBAWeather, setCurrentHourBAWeather] = useState([])
-    const {getFiveDaysForecast} = useLocationWeather(setCurrentHourBAWeather)
-    const {getTodayWeatherData} = useDefaultWeather(setCurrentHourBAWeather)
 
     useEffect(() => {
         checkCurrentHour()
-        getArgentinaTodayWeather()
         const currentBAWeather = JSON.parse(localStorage.getItem('currentHourBAWeather'))
         const currentHour = localStorage.getItem('currentHour')
-        if(!currentBAWeather) {
-            askForGeoLocation()
-        } else if(currentHour < new Date().getHours()){
+        if(!currentBAWeather) askForGeoLocation()
+        else if(currentHour < new Date().getHours()) {
             const userPosition = JSON.parse(localStorage.getItem('userLocation'))
             getFiveDaysForecast(userPosition)
         } else setCurrentHourBAWeather(currentBAWeather)
     }, [])
-
-    const getFiresData = async () => {
-        await axios.get('https://raw.githubusercontent.com/manucabral/argview-reports/main/wildfires/2022-01-01.csv').then((res) => { //a este decirle que tambien me de los de hoy
-            // const fires = csvToArrayConverter(res.data)
-            // buenosAiresFiresFilter(fires)
-            //  console.log("fires", fires)
-        })
-    }
-
-    const getArgentinaTodayWeather = async () => {
-        await axios.get('https://raw.githubusercontent.com/manucabral/argview-reports/main/forecast/today.csv').then((res) => {
-            // console.log("today", res.data)
-        })
-    }
-
-    const buenosAiresFiresFilter = (fireArray) => {
-        for (const item in fireArray) {
-            let fire = fireArray[item][0]
-            if(fire.provincia === "Buenos Aires")
-            setBAfires({year: fire.año, total: fire.total})
-        }
-    }
 
     const formatProvince = (str) => {
         var splitStr = str.replaceAll("_", " ").toLowerCase().split(' ');
@@ -53,13 +25,8 @@ const useHome = () => {
     }
 
     const askForGeoLocation = () => {
-        const coords = JSON.parse(localStorage.getItem('userLocation'))
-        if(coords) {
-            
-        }
         navigator.geolocation.getCurrentPosition(function(position) {
             const coords = {coords: {latitude: position.coords.latitude, longitude: position.coords.longitude}}
-            console.log("coordenadas", coords);
             localStorage.setItem('userLocation', JSON.stringify(coords))
             getFiveDaysForecast(position)
         }, () => getTodayWeatherData());
@@ -67,9 +34,7 @@ const useHome = () => {
     
     const checkCurrentHour = () => {
         const card = document.getElementById('card')
-        if(new Date().getHours() >= 18 && new Date().getHours() <= 6) {
-            card.className = 'card night'
-        }
+        if(new Date().getHours() >= 18 && new Date().getHours() <= 6) card.className = 'card night'
     }
 
     const esDateToDayNameenDate = (esDate) => {
@@ -84,14 +49,66 @@ const useHome = () => {
         const formatedDate = `${esDate.split("/")[0]}/${esDate.split("/")[1]}`
         return formatedDate
     }
-
-    const filterWeatherFromToday = (weather) => {
-        const filteredWeather = weather.filter((item) => item.date.split("/")[0] >= "0" + new Date().getDate()).slice(-2)
-        //che guerda que el "0" + dia es relativo, meterle el if 
-        return filteredWeather
-    }
    
-    return {BAfires, currentHourBAWeather, checkCurrentHour, formatProvince, esDateToDayNameenDate, esDateToDayAndMonthhenDate, filterWeatherFromToday}
+    const currentHourLocationsFilter = (weather) => {
+        const currentHour = new Date().getHours()
+        let currentHourWeather = []
+        weather.forEach((item, id) => {
+            const hour = item.hour.replace('Hs','')
+            if(hour > (currentHour - 2) && hour < (currentHour + 2)) {
+                currentHourWeather.push(weather[id])
+            }
+        })
+        return currentHourWeather
+    }
+
+    const currentDayLocationsFilter = (weather) => {
+        let currentDayWeather = []
+        let currentDay = new Date().getDate()
+        if(currentDay.length === 1) currentDay = "0" + currentDay
+        weather.forEach((item) => {
+            if(JSON.parse(item.date.split("/")[0]) === currentDay) {
+                currentDayWeather.push(item)
+            }
+        })
+        return currentDayWeather
+    }
+
+    const filterUserLocationWeather = (userLocationWeather, weather) => {
+        const currentDayWeather = currentDayLocationsFilter(userLocationWeather)
+        const currentHourWeather = currentHourLocationsFilter(userLocationWeather)
+        localStorage.setItem('currentHourBAWeather', JSON.stringify(currentHourWeather))
+        localStorage.setItem('currentDayBAWeather', JSON.stringify(currentDayWeather))
+        localStorage.setItem('BAWeather', JSON.stringify(userLocationWeather))
+        localStorage.setItem('weather', JSON.stringify(weather))
+        localStorage.setItem('currentHour', new Date().getHours())
+        setCurrentHourBAWeather(currentHourWeather)
+    }
+
+    const csvFiveDaysWeatherToArray = (string) => {
+        const csv = string.split("\n")
+        delete csv[0]
+        const json = []
+        for (let [_, value] of Object.entries(csv)) {
+            var data_splitted = value.split(",")
+            var content = {}
+            content["station_name"] = data_splitted[0]
+            content["date"] = data_splitted[1]
+            content["hour"] = data_splitted[2]
+            content["temperature"] = data_splitted[3]
+            content["wind_direction"] = data_splitted[4]
+            content["wind_speed"] = data_splitted[5]
+            content["precipitation_mm"] = data_splitted[6]
+            content["location"] = data_splitted[7]
+            if(data_splitted.length === 8) json.push(content)
+        }
+        return json
+    }
+
+    const {getFiveDaysForecast} = useLocationWeather(filterUserLocationWeather, csvFiveDaysWeatherToArray)
+    const {getTodayWeatherData} = useDefaultWeather(filterUserLocationWeather, csvFiveDaysWeatherToArray)
+
+    return {currentHourBAWeather, formatProvince, esDateToDayNameenDate, esDateToDayAndMonthhenDate, currentHourLocationsFilter, currentDayLocationsFilter}
 }
 
 export default useHome
