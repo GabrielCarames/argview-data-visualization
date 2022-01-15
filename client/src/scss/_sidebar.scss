@@ -1,39 +1,3 @@
-@mixin list {
-    .list{
-        list-style: none;
-        padding-left: 0px;
-        .list__href {
-            text-decoration: none;
-            color: white;
-            .list__item {
-                display: flex;
-                align-items: center;
-                font-size: 21px;
-                margin-top: 20px;
-                padding-left: 20px;
-                height: 40px;
-                cursor: pointer;
-                transition: background-color .2s;
-                border-radius: 8px;
-                &:hover {
-                    background-color: #5BC4FF;
-                }
-                .fas {
-                    width: 50px;
-                    text-align: center;
-                }
-                .list__title {
-                    transition: all 0s .1s;
-                    text-decoration: none;
-                    color: white;
-                    height: 27px;
-                    width: 100px;
-                }
-            }
-        }
-    }
-}
-
 $enabledWidth: 300px;
 $disabledWidth: 90px;
 
@@ -127,7 +91,6 @@ $disabledWidth: 90px;
     }
 }
 
-
 .burger-menu {
     display: flex;
     align-items: center;
@@ -148,9 +111,6 @@ $disabledWidth: 90px;
     &:hover {
         background-color: #5BC4FF;
         color: white;
-    }
-    .fa-bars {
-
     }
 }
 
