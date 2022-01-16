@@ -14,7 +14,6 @@ Weather and fire reports from many location in Argentina
 <div align="center">
 
 [![React](https://img.shields.io/badge/-React-blue?style=for-the-badge&logo=React)](https://es.reactjs.org/)
-[![Redux](https://img.shields.io/badge/-Redux-violet?style=for-the-badge&logo=redux)](https://sass-lang.com/)
 [![SASS](https://img.shields.io/badge/-sass-white?style=for-the-badge&logo=sass)](https://sass-lang.com/)
 
 </div>
@@ -49,7 +48,7 @@ The forecast can be filtered by a specific day or hour.
 You can search from a concrete weather location by its province name.
 
 ## User location
-If you allowed your browser location, the system will find out witch is the closest province by your coords, and then show you your weather location. 
+If you allow your browser location, the system will find out witch is the closest province by your coords, and then show you your weather location. 
 
 ## Responsive design
 It has a ***responsive design*** for mobile, tablet, and desktop devices.
