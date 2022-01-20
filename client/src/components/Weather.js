@@ -3,14 +3,14 @@ import useWeather from "../hooks/useWeather"
 import useHome from "../hooks/useHome"
 
 export default function Weather() {
-    const {currentHourBAWeather, currentDayBAWeather, getDirection, getWeatherFromDay, activeCurrentHourItem, celsiusToFahrenheit, setSearchWeather, weatherResults, getWeatherFromLocation, showWeatherList} = useWeather()
+    const {currentHourBAWeather, currentDayBAWeather, getDirection, getWeatherFromDay, activeCurrentHourItem, celsiusToFahrenheit, setSearchWeather, weatherResults, getWeatherFromLocation, showWeatherList, setShowWeatherList} = useWeather()
     const {esDateToDayNameenDate, esDateToDayAndMonthhenDate, formatProvince} = useHome()
     const [activeCard, setActiveCard] = useState(0)
 
     return (
         <div className="weather-container">
             <div className="searcher">
-                <h4 className="searcher__title">El tiempo en...</h4>
+                <h4 className="searcher__title">Buscar pronóstico en...</h4>
                 <div className="input-container">
                     <i className="fas fa-search"></i>
                     <input className="searcher__input" type="text" placeholder="Buscar" onChange={e => setSearchWeather(e.target.value)} />
@@ -19,7 +19,7 @@ export default function Weather() {
                     {
                         showWeatherList && weatherResults.map((item, id) => {
                             return (
-                                <li className="list__item" key={id} onClick={() => getWeatherFromLocation(item.station_name)}>
+                                <li className="list__item" key={id} onClick={() => {getWeatherFromLocation(item.station_name); setShowWeatherList(false)}}>
                                     {item.station_name ? <i className="fas fa-map-marker-alt"></i> : <div></div>}
                                     <p className="list__province">{item.station_name ? formatProvince(item.station_name) : item}</p>
                                     {item.station_name ? <img className="list__flag" src="https://www.meteored.com.ar/css/2018/icons/banderas18/67.svg" alt="flag"></img> : <div></div>}
@@ -41,7 +41,7 @@ export default function Weather() {
                                 </div>
                                 <i className="fas fa-sun"></i>
                                 <i className="fas fa-moon"></i>
-                                <span className="list__temperature">{weather.temperature}°</span>
+                                <span className="list__temperature">{weather.temperature}°C</span>
                                 <span className="list__wind-direction">{getDirection(weather.wind_direction)}</span>
                                 <span className="list__wind-speed">{weather.wind_speed}km/h</span>
                             </li>

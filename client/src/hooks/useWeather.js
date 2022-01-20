@@ -70,7 +70,7 @@ const useWeather = () => {
 
     const celsiusToFahrenheit = (degrees) => { return Math.round((Math.round(degrees) * (9 / 5)) + 32) }
 
-    return {currentHourBAWeather, currentDayBAWeather, getDirection, getWeatherFromDay, activeCurrentHourItem, celsiusToFahrenheit, setSearchWeather, weatherResults, getWeatherFromLocation, showWeatherList}
+    return {currentHourBAWeather, currentDayBAWeather, getDirection, getWeatherFromDay, activeCurrentHourItem, celsiusToFahrenheit, setSearchWeather, weatherResults, getWeatherFromLocation, showWeatherList, setShowWeatherList}
 }
 
 export default useWeather
